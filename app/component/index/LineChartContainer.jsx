@@ -1,6 +1,5 @@
 import React from "react";
 import { LineChart } from "react-d3-components";
-import { Brush } from "react-d3-components";
 
 function LineChartContainer() {
 
@@ -35,41 +34,97 @@ function LineChartContainer() {
   ];
 
   let xScale = d3.time.scale().domain([new Date(2015, 2, 5), new Date(2015, 2, 26)]).range([0, 400 - 70]);
-  let xScaleBrush = d3.time.scale().domain([new Date(2015, 2, 5), new Date(2015, 2, 26)]).range([0, 400 - 70]);
-
-  
-
-  let _onChange = function(extent) {
-    this.setState({
-      xScale: d3.time.scale().domain([extent[0], extent[1]]).range([0, 400 - 70])}
-      );
-    };
 
 
+
+  /*
   return (
     <div>
       <LineChart
         data={data}
-        width={800}
+        width={1000}
         height={400}
         margin={{ top: 10, bottom: 50, left: 50, right: 20 }}
         xScale={xScale}
         xAxis={{ tickValues: xScale.ticks(d3.time.day, 2), tickFormat: d3.time.format("%m/%d") }}
       />
-      <div className="brush" style={{ float: 'none' }}>
-        <Brush
-          width={400}
-          height={50}
-          margin={{ top: 0, bottom: 30, left: 50, right: 20 }}
-          xScale={xScaleBrush}
-          extent={[new Date(2015, 2, 10), new Date(2015, 2, 12)]}
-          onChange={_onChange}
-          xAxis={{ tickValues: xScaleBrush.ticks(d3.time.day, 2), tickFormat: d3.time.format("%m/%d") }}
-        />
-      </div>
     </div>
   );
-  
+  */
+
+  let data2 = [
+    {
+      label: 'somethingA',
+      values: [
+        { x: 0, y: 0 },
+        { x: 1.3, y: 5 },
+        { x: 3, y: 6 },
+        { x: 3.5, y: 6.5 },
+        { x: 4, y: 6 },
+        { x: 4.5, y: 6 },
+        { x: 5, y: 7 },
+        { x: 5.5, y: 8 }
+      ]
+    },
+    {
+      label: 'somethingB',
+      values: [
+        { x: 0, y: 3 },
+        { x: 1.3, y: 4 },
+        { x: 3, y: 7 },
+        { x: 3.5, y: 8 },
+        { x: 4, y: 7 },
+        { x: 4.5, y: 7 },
+        { x: 5, y: 7.8 },
+        { x: 5.5, y: 9 }
+      ]
+    }
+  ];
+  let tooltipLine = function (label, data) {
+    return label + " x: " + data.x + " y: " + data.y;
+  }
+
+  let dashFunc = function (label) {
+    if (label == "somethingA") {
+      return "4 4 4";
+    }
+    if (label == "somethingB") {
+      return "3 4 3";
+    }
+  }
+
+  let widthFunc = function (label) {
+    if (label == "somethingA") {
+      return "4";
+    }
+    if (label == "somethingB") {
+      return "2";
+    }
+  }
+
+  let linecapFunc = function (label) {
+    if (label == "somethingA") {
+      return "round";
+    }
+  }
+
+  return (
+    <div>
+      <LineChart
+        data={data2}
+        width={400}
+        height={400}
+        margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
+        tooltipHtml={tooltipLine}
+        tooltipContained
+        xAxis={{ innerTickSize: 6, label: "x-label" }}
+        yAxis={{ label: "y-label" }}
+        shapeColor={"red"}
+        stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
+      />
+    </div>
+  );
+
 }
 
 export default LineChartContainer;
