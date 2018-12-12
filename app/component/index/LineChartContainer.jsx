@@ -56,27 +56,29 @@ function LineChartContainer() {
     {
       label: 'somethingA',
       values: [
-        { x: 0, y: 0 },
-        { x: 1.3, y: 5 },
-        { x: 3, y: 6 },
-        { x: 3.5, y: 6.5 },
-        { x: 4, y: 6 },
-        { x: 4.5, y: 6 },
-        { x: 5, y: 7 },
-        { x: 5.5, y: 8 }
+        { x: new Date(2015, 2, 5), y: 1 },
+        { x: new Date(2015, 2, 6), y: 2 },
+        { x: new Date(2015, 2, 7), y: 0 },
+        { x: new Date(2015, 2, 8), y: 3 },
+        { x: new Date(2015, 2, 9), y: 2 },
+        { x: new Date(2015, 2, 10), y: 3 },
+        { x: new Date(2015, 2, 11), y: 4 },
+        { x: new Date(2015, 2, 12), y: 4 },
+        { x: new Date(2015, 2, 13), y: 1 }
       ]
     },
     {
       label: 'somethingB',
       values: [
-        { x: 0, y: 3 },
-        { x: 1.3, y: 4 },
-        { x: 3, y: 7 },
-        { x: 3.5, y: 8 },
-        { x: 4, y: 7 },
-        { x: 4.5, y: 7 },
-        { x: 5, y: 7.8 },
-        { x: 5.5, y: 9 }
+        { x: new Date(2015, 2, 5), y: 6 },
+        { x: new Date(2015, 2, 6), y: 2 },
+        { x: new Date(2015, 2, 7), y: 1 },
+        { x: new Date(2015, 2, 8), y: 1 },
+        { x: new Date(2015, 2, 9), y: 9 },
+        { x: new Date(2015, 2, 10), y: 0 },
+        { x: new Date(2015, 2, 11), y: 2 },
+        { x: new Date(2015, 2, 12), y: 1 },
+        { x: new Date(2015, 2, 13), y: 2 }
       ]
     }
   ];
@@ -113,14 +115,14 @@ function LineChartContainer() {
       <LineChart
         data={data2}
         width={400}
-        height={400}
-        margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
+        height={300}
+        margin={{ top: 10, bottom: 50, left: 50, right: 50 }}
         tooltipHtml={tooltipLine}
         tooltipContained
-        xAxis={{ innerTickSize: 6, label: "x-label" }}
+        xAxis={{ innerTickSize: 1, label: "x-label" }}
         yAxis={{ label: "y-label" }}
         shapeColor={"red"}
-        stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
+        // stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
       />
     </div>
   );
