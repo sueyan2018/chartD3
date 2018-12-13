@@ -18,6 +18,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
+import BarChartContainer from "./BarChartContainer.jsx";
+import PieChartContainer from "./PieChartContainer.jsx";
+import LineChartContainer from "./LineChartContainer.jsx";
+import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
+import AreaChartContainer from "./AreaChartContainer.jsx";
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -54,19 +60,19 @@ class Index extends React.Component {
         <Grid item xs={12}>
           <Grid container className={classes.demo} justify="left" spacing={Number(spacing)}>
               <Grid item>
-                <Paper className={classes.paper} />
+                <BarChartContainer /> />
               </Grid>
               <Grid item>
-                <Paper className={classes.paper} />
+                <PieChartContainer />
               </Grid>
               <Grid item>
-                <Paper className={classes.paper} />
+              <LineChartContainer />
               </Grid>
               <Grid item>
-                <Paper className={classes.paper} />
+              <ScatterPlotContainer />
               </Grid>
               <Grid item>
-                <Paper className={classes.paper} />
+              <AreaChartContainer />
               </Grid>
             {/* {[0, 1, 2].map(value => (
               <Grid key={value} item>
