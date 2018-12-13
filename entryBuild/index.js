@@ -5,15 +5,18 @@ import PieChartContainer from "../app/component/index/PieChartContainer.jsx";
 import LineChartContainer from "../app/component/index/LineChartContainer.jsx";
 import ScatterPlotContainer from "../app/component/index/ScatterPlotContainer.jsx";
 import AreaChartContainer from "../app/component/index/AreaChartContainer.jsx";
+import Index from '../app/component/index/Index.jsx';
 
 function App() {
     return (
       <div className="App">
-        <BarChartContainer />
+      <Index/>
+        {/* <BarChartContainer />
         <PieChartContainer />
         <LineChartContainer />
         <ScatterPlotContainer />
-        <AreaChartContainer />
+        <AreaChartContainer /> */}
+
       </div>
     );
   }
