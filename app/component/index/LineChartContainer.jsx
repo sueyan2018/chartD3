@@ -114,8 +114,8 @@ function LineChartContainer() {
     <div>
       <LineChart
         data={data2}
-        width={400}
-        height={300}
+        width={300}
+        height={150}
         margin={{ top: 10, bottom: 50, left: 50, right: 50 }}
         tooltipHtml={tooltipLine}
         tooltipContained
