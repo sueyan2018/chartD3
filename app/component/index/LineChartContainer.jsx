@@ -1,5 +1,5 @@
 import React from "react";
-import { LineChart } from "react-d3-components";
+import { LineChart,Brush } from "react-d3-components";
 
 function LineChartContainer() {
 
@@ -119,7 +119,7 @@ function LineChartContainer() {
         margin={{ top: 10, bottom: 50, left: 50, right: 50 }}
         tooltipHtml={tooltipLine}
         tooltipContained
-        xAxis={{ innerTickSize: 1, label: "x-label" }}
+        xAxis={{ innerTickSize: 1, label: "x-label",className:"transTest" }}
         yAxis={{ label: "y-label" }}
         shapeColor={"red"}
         // stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
