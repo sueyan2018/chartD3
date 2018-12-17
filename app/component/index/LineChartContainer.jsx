@@ -115,11 +115,11 @@ function LineChartContainer() {
       <LineChart
         data={data2}
         width={300}
-        height={150}
-        margin={{ top: 10, bottom: 50, left: 50, right: 50 }}
+        height={290}
+        margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
         tooltipHtml={tooltipLine}
         tooltipContained
-        xAxis={{ innerTickSize: 1, label: "x-label",className:"transTest" }}
+        xAxis={{ innerTickSize: 1, /*label: "x-label",*/className:"transTest",tickFormat: d3.time.format("%a,%b %d") }}
         yAxis={{ label: "y-label" }}
         shapeColor={"red"}
         // stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}

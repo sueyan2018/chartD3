@@ -33,9 +33,9 @@ function ScatterPlotContainer() {
     return (
         <ScatterPlot
             data={data}
-            width={400}
+            width={300}
             height={300}
-            margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
+            margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
         />
     );
 }

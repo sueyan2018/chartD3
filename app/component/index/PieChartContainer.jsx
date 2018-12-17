@@ -41,10 +41,10 @@ function PieChartContainer() {
   return (
     <PieChart
       data={data}
-      width={400}
-      height={400}
-      margin={{ top: 10, bottom: 10, left: 100, right: 100 }}
-      tooltipOffset={{ top: 125, left: 200 }}
+      width={300}
+      height={300}
+      margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+      tooltipOffset={{ top: 125, left: 120 }}
       tooltipHtml={tooltipPie}
       tooltipMode={'fixed'}
       sort={sort}
