@@ -57,8 +57,7 @@ class Layout extends React.Component {
 
     return (
 
-      <Grid container className={classes.root}>
-        <Grid item xs={12}>
+      <DragDropContext onDragEnd={this.onDragEnd}>
           <Grid
             className={classes.demo}
             container
@@ -67,9 +66,7 @@ class Layout extends React.Component {
             direction={direction}
             justify={justify}
           >
-            <DragDropContext onDragStart={this.onDragStart}
-        onDragUpdate={this.onDragUpdate}
-        onDragEnd={this.onDragEnd}>
+            <Droppable droppableId="droppable" direction="horizontal">
             <Grid item>
               <Paper
                 className={classes.paper}
@@ -81,7 +78,7 @@ class Layout extends React.Component {
                 <LineChartContainer />
               </Paper>
             </Grid>
-            </DragDropContext>
+            </Droppable>
             <Grid item>
               <Paper
                 className={classes.paper}
@@ -93,6 +90,7 @@ class Layout extends React.Component {
                 <BarChartContainer />
               </Paper>
             </Grid>
+            
             <Grid item>
               <Paper
                 className={classes.paper}
@@ -104,6 +102,7 @@ class Layout extends React.Component {
                 <ScatterPlotContainer />
               </Paper>
             </Grid>
+            
             <Grid item>
               <Paper
                 className={classes.paper}
@@ -115,6 +114,7 @@ class Layout extends React.Component {
                 <AreaChartContainer />
               </Paper>
             </Grid>
+            
             <Grid item>
               <Paper
                 className={classes.paper}
@@ -126,9 +126,9 @@ class Layout extends React.Component {
                 <PieChartContainer />
               </Paper>
             </Grid>
+                
           </Grid>
-        </Grid>
-      </Grid>
+        </DragDropContext>
     );
   }
 }
