@@ -20,7 +20,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 0 ${grid}px 0`,
 
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "#f5f5f5",
+  background: isDragging ? "#f0f8ff" : "#f5f5f5",
 
   // styles we need to apply on draggables
   ...draggableStyle
@@ -36,8 +36,9 @@ const reorder = (list, startIndex, endIndex) => {
 
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? "lightblue" : "#f5f5f5",
+  display: 'flex',
   padding: grid,
-  
+  //overflow: 'auto',
 });
 
 const styles = theme => ({
@@ -123,22 +124,22 @@ class Layout extends React.Component {
 
 
     return (
-      <Grid
-            className={classes.demo}
-            container
-            spacing={16}
-            alignItems={alignItems}
-            direction={direction}
-            justify={justify}
-          >
+      
         <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable" >
+        <Droppable droppableId="droppable" direction="horizontal">
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
             >
-            
+            <Grid
+                className={classes.demo}
+                container
+                spacing={16}
+                alignItems={alignItems}
+                direction={direction}
+                justify={justify}
+            >
             {items.map((i, index) => (
                 <Draggable key={i.id} draggableId={i.id} index={index}>
                   {(provided, snapshot) => (
@@ -151,7 +152,7 @@ class Layout extends React.Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <Grid item>
+                      <Grid item xs={6} md={3}>
                         <Paper
                           className={classes.paper}
                           style={{
@@ -167,66 +168,13 @@ class Layout extends React.Component {
                   )}
                 </Draggable>
               ))}
-              {/* <Draggable draggableId="draggable-1" index={0}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
-                    >
-                    
-                    <Grid item>
-                      <Paper
-                        className={classes.paper}
-                        style={{
-                          paddingTop: 10,
-                          paddingBottom: 10
-                        }}
-                      >
-                        <LineChartContainer />
-                      </Paper>
-                    </Grid>
-                    </div>
-                  
-                )}
-
-              </Draggable>
-              <Draggable draggableId="draggable-2" index={1}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
-                  >
-                  <Grid item>
-                    <Paper
-                      className={classes.paper}
-                      style={{
-                        paddingTop: 10,
-                        paddingBottom: 10
-                      }}
-                    >
-                      <BarChartContainer />
-                    </Paper>
-                  </Grid>
-                  </div>
-                )}
-              </Draggable> */}
-
+              </Grid>
               {provided.placeholder}
             </div>
           )}
         </Droppable>
       </DragDropContext>
-      </Grid>
+     
       // <DragDropContext onDragEnd={this.onDragEnd}>
       //     <Grid
       //       className={classes.demo}
