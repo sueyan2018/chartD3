@@ -11,6 +11,26 @@ import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+const grid = 8;
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: "none",
+  padding: grid * 2,
+  margin: `0 0 ${grid}px 0`,
+
+  // change background colour if dragging
+  background: isDragging ? "lightgreen" : "grey",
+
+  // styles we need to apply on draggables
+  ...draggableStyle
+});
+
+const getListStyle = isDraggingOver => ({
+  background: isDraggingOver ? "lightblue" : "lightgrey",
+  padding: grid,
+  width: 250
+});
 
 const styles = theme => ({
   root: {
@@ -56,79 +76,117 @@ class Layout extends React.Component {
     const { classes } = this.props;
 
     return (
+<DragDropContext onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}
+            >
+              <Draggable draggableId="draggable-1" index={0}>
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
+                  />
+                )}
+              </Draggable>
+              <Draggable draggableId="draggable-2" index={1}>
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
+                  />
+                )}
+              </Draggable>
 
-      <DragDropContext onDragEnd={this.onDragEnd}>
-          <Grid
-            className={classes.demo}
-            container
-            spacing={16}
-            alignItems={alignItems}
-            direction={direction}
-            justify={justify}
-          >
-            <Droppable droppableId="droppable" direction="horizontal">
-            <Grid item>
-              <Paper
-                className={classes.paper}
-                style={{
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}
-              >
-                <LineChartContainer />
-              </Paper>
-            </Grid>
-            </Droppable>
-            <Grid item>
-              <Paper
-                className={classes.paper}
-                style={{
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}
-              >
-                <BarChartContainer />
-              </Paper>
-            </Grid>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      // <DragDropContext onDragEnd={this.onDragEnd}>
+      //     <Grid
+      //       className={classes.demo}
+      //       container
+      //       spacing={16}
+      //       alignItems={alignItems}
+      //       direction={direction}
+      //       justify={justify}
+      //     >
+      //       <Grid item>
+      //         <Paper
+      //           className={classes.paper}
+      //           style={{
+      //             paddingTop: 10,
+      //             paddingBottom: 10
+      //           }}
+      //         >
+      //           <LineChartContainer />
+      //         </Paper>
+      //       </Grid>
+
+      //       <Grid item>
+      //         <Paper
+      //           className={classes.paper}
+      //           style={{
+      //             paddingTop: 10,
+      //             paddingBottom: 10
+      //           }}
+      //         >
+      //           <BarChartContainer />
+      //         </Paper>
+      //       </Grid>
             
-            <Grid item>
-              <Paper
-                className={classes.paper}
-                style={{
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}
-              >
-                <ScatterPlotContainer />
-              </Paper>
-            </Grid>
+      //       <Grid item>
+      //         <Paper
+      //           className={classes.paper}
+      //           style={{
+      //             paddingTop: 10,
+      //             paddingBottom: 10
+      //           }}
+      //         >
+      //           <ScatterPlotContainer />
+      //         </Paper>
+      //       </Grid>
             
-            <Grid item>
-              <Paper
-                className={classes.paper}
-                style={{
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}
-              >
-                <AreaChartContainer />
-              </Paper>
-            </Grid>
+      //       <Grid item>
+      //         <Paper
+      //           className={classes.paper}
+      //           style={{
+      //             paddingTop: 10,
+      //             paddingBottom: 10
+      //           }}
+      //         >
+      //           <AreaChartContainer />
+      //         </Paper>
+      //       </Grid>
             
-            <Grid item>
-              <Paper
-                className={classes.paper}
-                style={{
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}
-              >
-                <PieChartContainer />
-              </Paper>
-            </Grid>
-                
-          </Grid>
-        </DragDropContext>
+      //       <Grid item>
+      //         <Paper
+      //           className={classes.paper}
+      //           style={{
+      //             paddingTop: 10,
+      //             paddingBottom: 10
+      //           }}
+      //         >
+      //           <PieChartContainer />
+      //         </Paper>
+      //       </Grid>
+          
+      //     </Grid>
+      //   </DragDropContext>
+    
     );
   }
 }
