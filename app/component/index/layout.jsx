@@ -20,7 +20,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 0 ${grid}px 0`,
 
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  background: isDragging ? "lightgreen" : "#f5f5f5",
 
   // styles we need to apply on draggables
   ...draggableStyle
@@ -35,9 +35,9 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
+  background: isDraggingOver ? "lightblue" : "#f5f5f5",
   padding: grid,
-  width: 250
+  width: 360
 });
 
 const styles = theme => ({
@@ -130,8 +130,9 @@ class Layout extends React.Component {
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
             >
-            {items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
+            
+            {items.map((i, index) => (
+                <Draggable key={i.id} draggableId={i.id} index={index}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
@@ -142,7 +143,18 @@ class Layout extends React.Component {
                         provided.draggableProps.style
                       )}
                     >
-                      {item.content}
+             <Grid item>
+               <Paper
+                 className={classes.paper}
+                 style={{
+                  paddingTop: 10,
+                  paddingBottom: 10
+                }}
+              >
+                {i.content}
+              </Paper>
+            </Grid>                      
+                      
                     </div>
                   )}
                 </Draggable>
