@@ -100,6 +100,79 @@ class App extends Component {
           )}
         </Droppable>
       </DragDropContext>
+    
+    // <DragDropContext onDragEnd={this.onDragEnd}>
+    //       <Grid
+    //         className={classes.demo}
+    //         container
+    //         spacing={16}
+    //         alignItems={alignItems}
+    //         direction={direction}
+    //         justify={justify}
+    //       >
+    //         <Grid item>
+    //           <Paper
+    //             className={classes.paper}
+    //             style={{
+    //               paddingTop: 10,
+    //               paddingBottom: 10
+    //             }}
+    //           >
+    //             <LineChartContainer />
+    //           </Paper>
+    //         </Grid>
+
+    //         <Grid item>
+    //           <Paper
+    //             className={classes.paper}
+    //             style={{
+    //               paddingTop: 10,
+    //               paddingBottom: 10
+    //             }}
+    //           >
+    //             <BarChartContainer />
+    //           </Paper>
+    //         </Grid>
+            
+    //         <Grid item>
+    //           <Paper
+    //             className={classes.paper}
+    //             style={{
+    //               paddingTop: 10,
+    //               paddingBottom: 10
+    //             }}
+    //           >
+    //             <ScatterPlotContainer />
+    //           </Paper>
+    //         </Grid>
+            
+    //         <Grid item>
+    //           <Paper
+    //             className={classes.paper}
+    //             style={{
+    //               paddingTop: 10,
+    //               paddingBottom: 10
+    //             }}
+    //           >
+    //             <AreaChartContainer />
+    //           </Paper>
+    //         </Grid>
+            
+    //         <Grid item>
+    //           <Paper
+    //             className={classes.paper}
+    //             style={{
+    //               paddingTop: 10,
+    //               paddingBottom: 10
+    //             }}
+    //           >
+    //             <PieChartContainer />
+    //           </Paper>
+    //         </Grid>
+          
+    //       </Grid>
+    //     </DragDropContext>
+    
     );
   }
 }
