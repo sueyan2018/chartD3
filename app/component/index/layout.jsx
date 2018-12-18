@@ -33,6 +33,19 @@ const reorder = (list, startIndex, endIndex) => {
 
   return result;
 };
+const move = (source, destination, droppableSource, droppableDestination) => {
+  const sourceClone = Array.from(source);
+  const destClone = Array.from(destination);
+  const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+  destClone.splice(droppableDestination.index, 0, removed);
+
+  const result = {};
+  result[droppableSource.droppableId] = sourceClone;
+  result[droppableDestination.droppableId] = destClone;
+
+  return result;
+};
 
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? "lightblue" : "#f5f5f5",
@@ -86,7 +99,27 @@ class Layout extends React.Component {
           content: <AreaChartContainer />,
         }
   
-      ]
+      ],
+      selected: [
+
+        {
+          id: `draggable-5`,
+          content: <LineChartContainer />,
+        },
+        {
+          id: `draggable-6`,
+          content: <BarChartContainer />,
+        },
+        {
+          id: `draggable-7`,
+          content: <ScatterPlotContainer />,
+        },
+        {
+          id: `draggable-8`,
+          content: <AreaChartContainer />,
+        }
+  
+      ],
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -96,30 +129,67 @@ class Layout extends React.Component {
   onDragUpdate () {
     /*...*/
   }
-  onDragEnd (result) {
-    // the only one that is required
- 
-    if (!result.destination) {
-      return;
-    }
-    const items = reorder(
-      this.state.items,
-      result.source.index,
-      result.destination.index
-    );
-
-    this.setState({
-      items,
-    });
-  }
-
-  changeComponents(){
-
+  // onDragEnd (result) {
     
-  }
+  //   if (!result.destination) {
+  //     return;
+  //   }
+  //   const items = reorder(
+  //     this.state.items,
+  //     result.source.index,
+  //     result.destination.index
+  //   );
+
+  //   this.setState({
+  //     items,
+  //   });
+  // }
+  id2List = {
+    droppable: 'items',
+    droppable2: 'selected'
+};
+
+getList = id => this.state[this.id2List[id]];
+
+  onDragEnd = result => {
+    const { source, destination } = result;
+
+    // dropped outside the list
+    if (!destination) {
+        return;
+    }
+
+    if (source.droppableId === destination.droppableId) {
+        const items = reorder(
+            this.getList(source.droppableId),
+            source.index,
+            destination.index
+        );
+
+        let state = { items };
+
+        if (source.droppableId === 'droppable2') {
+            state = { selected: items };
+        }
+
+        this.setState(state);
+    } else {
+        const result = move(
+            this.getList(source.droppableId),
+            this.getList(destination.droppableId),
+            source,
+            destination
+        );
+
+        this.setState({
+            items: result.droppable,
+            selected: result.droppable2
+        });
+    }
+};
 
   render() {
-    const { alignItems, direction, justify,items } = this.state;
+    const { alignItems, direction, justify,items,selected } = this.state;
     const { classes } = this.props;
 
 
@@ -152,7 +222,7 @@ class Layout extends React.Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <Grid item xs={6} md={3}>
+                      <Grid item xs={6} sm={3}>
                         <Paper
                           className={classes.paper}
                           style={{
@@ -173,7 +243,55 @@ class Layout extends React.Component {
             </div>
           )}
         </Droppable>
-      </DragDropContext>
+        <Droppable droppableId="droppable2" direction="horizontal">
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}
+            >
+            <Grid
+                className={classes.demo}
+                container
+                spacing={16}
+                alignItems={alignItems}
+                direction={direction}
+                justify={justify}
+            >
+            {selected.map((i, index) => (
+                <Draggable key={i.id} draggableId={i.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}
+                    >
+                      <Grid item xs={6} sm={3}>
+                        <Paper
+                          className={classes.paper}
+                          style={{
+                            paddingTop: 10,
+                            paddingBottom: 10
+                          }}
+                        >
+                          {i.content}
+                        </Paper>
+                      </Grid>                      
+                      
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              </Grid>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        
+        </DragDropContext>
      
       // <DragDropContext onDragEnd={this.onDragEnd}>
       //     <Grid
