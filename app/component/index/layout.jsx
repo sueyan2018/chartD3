@@ -37,7 +37,7 @@ const reorder = (list, startIndex, endIndex) => {
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? "lightblue" : "#f5f5f5",
   padding: grid,
-  width: 360
+  
 });
 
 const styles = theme => ({
@@ -123,7 +123,15 @@ class Layout extends React.Component {
 
 
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <Grid
+            className={classes.demo}
+            container
+            spacing={16}
+            alignItems={alignItems}
+            direction={direction}
+            justify={justify}
+          >
+        <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable" >
           {(provided, snapshot) => (
             <div
@@ -143,17 +151,17 @@ class Layout extends React.Component {
                         provided.draggableProps.style
                       )}
                     >
-             <Grid item>
-               <Paper
-                 className={classes.paper}
-                 style={{
-                  paddingTop: 10,
-                  paddingBottom: 10
-                }}
-              >
-                {i.content}
-              </Paper>
-            </Grid>                      
+                      <Grid item>
+                        <Paper
+                          className={classes.paper}
+                          style={{
+                            paddingTop: 10,
+                            paddingBottom: 10
+                          }}
+                        >
+                          {i.content}
+                        </Paper>
+                      </Grid>                      
                       
                     </div>
                   )}
@@ -218,7 +226,7 @@ class Layout extends React.Component {
           )}
         </Droppable>
       </DragDropContext>
-      
+      </Grid>
       // <DragDropContext onDragEnd={this.onDragEnd}>
       //     <Grid
       //       className={classes.demo}
