@@ -1,5 +1,6 @@
 import React from "react";
 import { BarChart } from "react-d3-components";
+import { SizeMe } from 'react-sizeme';
 
 function BarChartContainer() {
   let data = [
@@ -32,23 +33,19 @@ function BarChartContainer() {
       },
 ];
   return (
-    <BarChart
-      data={data}
-      width={300}
-      height={300}
-      margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
-    />
+    <SizeMe
+          monitorHeight
+          refreshRate={32}
+          render={({ size }) =>
+        <BarChart
+          data={data}
+          width={size.width}
+          height={size.width}
+          margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+        />
+      }
+      />
   );
-  /*
-  return (
-    <BarChart
-      groupedBars
-      data={data2}
-      width={400}
-      height={400}
-      margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
-    />
-  );
-  */
+
 }
 export default BarChartContainer;

@@ -1,5 +1,6 @@
 import React from "react";
 import { LineChart,Brush } from "react-d3-components";
+import { SizeMe } from 'react-sizeme';
 
 function LineChartContainer() {
 
@@ -112,18 +113,27 @@ function LineChartContainer() {
 
   return (
     <div>
-      <LineChart
-        data={data2}
-        width={300}
-        height={290}
-        margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
-        tooltipHtml={tooltipLine}
-        tooltipContained
-        xAxis={{ innerTickSize: 1, /*label: "x-label",*/className:"transTest",tickFormat: d3.time.format("%a,%b %d") }}
-        yAxis={{ label: "y-label" }}
-        shapeColor={"red"}
-        // stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
-      />
+
+      <SizeMe
+          monitorHeight
+          refreshRate={32}
+          render={({ size }) =>  
+          
+          <LineChart
+          data={data2}
+          width={size.width}
+          height={size.width}
+          margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+          tooltipHtml={tooltipLine}
+          tooltipContained
+          xAxis={{ innerTickSize: 1, className:"transTest",tickFormat: d3.time.format("%a,%b %d") }}
+          yAxis={{ label: "y-label" }}
+          shapeColor={"red"}
+           //stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
+        />
+          }
+        />
+      
     </div>
   );
 

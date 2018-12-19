@@ -266,6 +266,7 @@ import LineChartContainer from "./LineChartContainer.jsx";
 import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 
+
 /**
  * This layout demonstrates how to use a grid with a dynamic number of elements.
  */

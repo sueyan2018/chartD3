@@ -1,5 +1,6 @@
 import React from "react";
 import { PieChart } from "react-d3-components";
+import { SizeMe } from 'react-sizeme';
 
 function PieChartContainer() {
   let data = {
@@ -39,17 +40,26 @@ function PieChartContainer() {
 
   console.log(data);
   return (
-    <PieChart
-      data={data}
-      width={300}
-      height={300}
-      margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
-      tooltipOffset={{ top: 125, left: 120 }}
-      tooltipHtml={tooltipPie}
-      tooltipMode={'fixed'}
-      sort={sort}
+    <SizeMe
+          monitorHeight
+          refreshRate={32}
+          render={({ size }) =>
+      <PieChart
+        data={data}
+        width={size.width}
+        height={size.width}
+        margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+        tooltipOffset={{ top: 125, left: 120 }}
+        tooltipHtml={tooltipPie}
+        tooltipMode={'fixed'}
+        sort={sort}
+      />
+    }
     />
   );
+
+  
 }
+
 export default PieChartContainer;
 

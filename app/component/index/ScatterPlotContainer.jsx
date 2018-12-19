@@ -1,5 +1,6 @@
 import React from "react";
 import { ScatterPlot } from "react-d3-components";
+import { SizeMe } from 'react-sizeme';
 
 function ScatterPlotContainer() {
     let data = [
@@ -31,11 +32,17 @@ function ScatterPlotContainer() {
         }
     ];
     return (
-        <ScatterPlot
-            data={data}
-            width={300}
-            height={300}
-            margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+        <SizeMe
+          monitorHeight
+          refreshRate={32}
+          render={({ size }) =>
+            <ScatterPlot
+                data={data}
+                width={size.width}
+                height={size.width}
+                margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+            />
+        }
         />
     );
 }

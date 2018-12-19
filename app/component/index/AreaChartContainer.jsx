@@ -1,5 +1,6 @@
 import React from "react";
 import { AreaChart } from "react-d3-components";
+import { SizeMe } from 'react-sizeme';
 
 function AreaChartContainer() {
     let data = [
@@ -31,11 +32,17 @@ function AreaChartContainer() {
         }
     ];
     return (
+        <SizeMe
+          monitorHeight
+          refreshRate={32}
+          render={({ size }) =>
         <AreaChart
             data={data}
-            width={300}
-            height={300}
+            width={size.width}
+            height={size.width}
             margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+        />
+        }
         />
     );
 }
