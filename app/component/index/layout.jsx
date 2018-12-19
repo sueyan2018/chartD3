@@ -10,13 +10,11 @@ import LineChartContainer from "./LineChartContainer.jsx";
 import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 
-// import RGL, { WidthProvider } from "react-grid-layout";
+import RGL, { WidthProvider } from "react-grid-layout";
 
-// const ReactGridLayout = WidthProvider(RGL);
+const ReactGridLayout = WidthProvider(RGL);
 
-import { WidthProvider, Responsive } from "react-grid-layout";
-import _ from "lodash";
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
+import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 
 const styles = theme => ({
   root: {
@@ -38,117 +36,87 @@ const styles = theme => ({
 class BasicLayout extends React.Component {
   static defaultProps = {
     className: "layout",
-    cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+    items: 4,
     rowHeight: 100,
     onLayoutChange: function() {},
+    cols: 4
   };
   
   constructor(props) {
     // props
     super(props);
     
-    // this.state = {
-    //   direction: "row",
-    //   justify: "flex-start",
-    //   alignItems: "flex-start",
-    // };
     this.state = {
-      items: [0, 1, 2, 3, 4].map(function(i, key, list) {
-        return {
-          i: i.toString(),
-          x: i * 2,
-          y: 0,
-          w: 3,
-          h: 3,
-          add: i === (list.length - 1).toString()
-        };
-      }),
-      newCounter: 0
+      direction: "row",
+      justify: "flex-start",
+      alignItems: "flex-start",
     };
-
-    this.onAddItem = this.onAddItem.bind(this);
-    this.onBreakpointChange = this.onBreakpointChange.bind(this);
+    const layout = this.generateLayout();
+    this.state = { layout };
   }
-
-  createElement(el) {
-    const removeStyle = {
-      position: "absolute",
-      right: "2px",
-      top: 0,
-      cursor: "pointer"
-    };
-    const i = el.add ? "+" : el.i;
-    return (
-      <div key={i} data-grid={el}>
-        {el.add ? (
-          <span
-            className="add text"
-            onClick={this.onAddItem}
-            title="You can add an item by clicking here, too."
-          >
-            Add +
-          </span>
-        ) : (
-          <span className="text">{i}</span>
-        )}
-        <span
-          className="remove"
-          style={removeStyle}
-          onClick={this.onRemoveItem.bind(this, i)}
-        >
-        remove
-        </span>
+  generateDOM() {
+    return [
+      <div key={"1"}>
+         <LineChartContainer />
+      </div>,
+      <div key={"2"}>
+         <BarChartContainer />
+      </div>,
+      <div key={"3"}>
+         <PieChartContainer />
+      </div>,
+      <div key={"4"}>
+        <ScatterPlotContainer />
       </div>
-    );
+    ];
   }
-  onAddItem() {
-    /*eslint no-console: 0*/
-    console.log("adding", "n" + this.state.newCounter);
-    this.setState({
-      // Add a new item. It must have a unique key!
-      items: this.state.items.concat({
-        i: "n" + this.state.newCounter,
-        x: (this.state.items.length * 2) % (this.state.cols || 12),
-        y: Infinity, // puts it at the bottom
-        w: 2,
-        h: 2
-      }),
-      // Increment the counter to ensure key is always unique.
-      newCounter: this.state.newCounter + 1
-    });
-  }
-
-  // We're using the cols coming back from this to calculate where to add new items.
-  onBreakpointChange(breakpoint, cols) {
-    this.setState({
-      breakpoint: breakpoint,
-      cols: cols
-    });
+  generateLayout() {
+    return [
+      {
+        x: 0,
+        y: 0,
+        w: 1,
+        h: 3,
+        i: "1"
+      },
+      {
+        x: 1,
+        y: 0,
+        w: 1,
+        h: 3,
+        i: "2"
+      },
+      {
+        x: 2,
+        y: 0,
+        w: 1,
+        h: 3,
+        i: "3"
+      },
+      {
+        x: 3,
+        y: 0,
+        w: 1,
+        h: 3,
+        i: "4"
+      }
+    ];
   }
 
   onLayoutChange(layout) {
     this.props.onLayoutChange(layout);
-    this.setState({ layout: layout });
-  }
-
-  onRemoveItem(i) {
-    console.log("removing", i);
-    this.setState({ items: _.reject(this.state.items, { i: i }) });
   }
 
   render() {
 
     return (
-      <div>
-        <button onClick={this.onAddItem}>Add Item</button>
-        <ResponsiveReactGridLayout
-          onLayoutChange={this.onLayoutChange}
-          onBreakpointChange={this.onBreakpointChange}
-          {...this.props}
-        >
-          {_.map(this.state.items, el => this.createElement(el))}
-        </ResponsiveReactGridLayout>
-      </div>
+      <ReactGridLayout
+        layout={this.state.layout}
+        onLayoutChange={this.onLayoutChange}
+        {...this.props}
+      >
+        {this.generateDOM()}
+      </ReactGridLayout>
     )
   }
   // render() {
