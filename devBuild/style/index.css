@@ -2,3 +2,7 @@
     transform: translateX(-5%) translateY(-2%) rotate(-60deg);
     font-size: 12px;
 }
+
+.layout >.react-grid-item{
+    background-color: #dfdfdf;
+}

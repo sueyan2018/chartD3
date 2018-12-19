@@ -10,8 +10,6 @@ import LineChartContainer from "./LineChartContainer.jsx";
 import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -38,26 +36,17 @@ class Layout extends React.Component {
       direction: "row",
       justify: "flex-start",
       alignItems: "flex-start",
-      
     };
-  }
-  onDragStart ()  {
-    /*...*/
-  };
-  onDragUpdate () {
-    /*...*/
-  }
-  onDragEnd () {
-    // the only one that is required
+    
   }
 
   render() {
     const { alignItems, direction, justify } = this.state;
     const { classes } = this.props;
 
-    return (
 
-      <DragDropContext onDragEnd={this.onDragEnd}>
+    return (
+      
           <Grid
             className={classes.demo}
             container
@@ -127,7 +116,6 @@ class Layout extends React.Component {
             </Grid>
           
           </Grid>
-        </DragDropContext>
     
     );
   }

@@ -23,7 +23,7 @@ import PieChartContainer from "./PieChartContainer.jsx";
 import LineChartContainer from "./LineChartContainer.jsx";
 import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
-import Layout from "./layout.jsx";
+import BasicLayout from "./layout.jsx";
 
 
 const styles = theme => ({
@@ -54,7 +54,7 @@ class Index extends React.Component {
     return (
         <div>
             
-        <Layout />
+        <BasicLayout />
         </div>
     //   <Grid container className={classes.root} spacing={16}>
     //     <Grid item xs={12}>

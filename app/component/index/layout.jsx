@@ -10,49 +10,13 @@ import LineChartContainer from "./LineChartContainer.jsx";
 import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-const grid = 8;
+// import RGL, { WidthProvider } from "react-grid-layout";
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
+// const ReactGridLayout = WidthProvider(RGL);
 
-  // change background colour if dragging
-  background: isDragging ? "#f0f8ff" : "#f5f5f5",
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-const move = (source, destination, droppableSource, droppableDestination) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-
-  return result;
-};
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "#f5f5f5",
-  display: 'flex',
-  padding: grid,
-  //overflow: 'auto',
-});
+import { WidthProvider, Responsive } from "react-grid-layout";
+import _ from "lodash";
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const styles = theme => ({
   root: {
@@ -71,306 +35,206 @@ const styles = theme => ({
   }
 });
 
-class Layout extends React.Component {
+class BasicLayout extends React.Component {
+  static defaultProps = {
+    className: "layout",
+    cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+    rowHeight: 100,
+    onLayoutChange: function() {},
+  };
+  
   constructor(props) {
     // props
     super(props);
-
+    
+    // this.state = {
+    //   direction: "row",
+    //   justify: "flex-start",
+    //   alignItems: "flex-start",
+    // };
     this.state = {
-      direction: "row",
-      justify: "flex-start",
-      alignItems: "flex-start",
-      items: [
-
-        {
-          id: `draggable-1`,
-          content: <LineChartContainer />,
-        },
-        {
-          id: `draggable-2`,
-          content: <BarChartContainer />,
-        },
-        {
-          id: `draggable-3`,
-          content: <ScatterPlotContainer />,
-        },
-        {
-          id: `draggable-4`,
-          content: <AreaChartContainer />,
-        }
-  
-      ],
-      selected: [
-
-        {
-          id: `draggable-5`,
-          content: <LineChartContainer />,
-        },
-        {
-          id: `draggable-6`,
-          content: <BarChartContainer />,
-        },
-        {
-          id: `draggable-7`,
-          content: <ScatterPlotContainer />,
-        },
-        {
-          id: `draggable-8`,
-          content: <AreaChartContainer />,
-        }
-  
-      ],
+      items: [0, 1, 2, 3, 4].map(function(i, key, list) {
+        return {
+          i: i.toString(),
+          x: i * 2,
+          y: 0,
+          w: 3,
+          h: 3,
+          add: i === (list.length - 1).toString()
+        };
+      }),
+      newCounter: 0
     };
-    this.onDragEnd = this.onDragEnd.bind(this);
+
+    this.onAddItem = this.onAddItem.bind(this);
+    this.onBreakpointChange = this.onBreakpointChange.bind(this);
   }
-  onDragStart ()  {
-    /*...*/
-  };
-  onDragUpdate () {
-    /*...*/
-  }
-  // onDragEnd (result) {
-    
-  //   if (!result.destination) {
-  //     return;
-  //   }
-  //   const items = reorder(
-  //     this.state.items,
-  //     result.source.index,
-  //     result.destination.index
-  //   );
 
-  //   this.setState({
-  //     items,
-  //   });
-  // }
-  id2List = {
-    droppable: 'items',
-    droppable2: 'selected'
-};
-
-getList = id => this.state[this.id2List[id]];
-
-  onDragEnd = result => {
-    const { source, destination } = result;
-
-    // dropped outside the list
-    if (!destination) {
-        return;
-    }
-
-    if (source.droppableId === destination.droppableId) {
-        const items = reorder(
-            this.getList(source.droppableId),
-            source.index,
-            destination.index
-        );
-
-        let state = { items };
-
-        if (source.droppableId === 'droppable2') {
-            state = { selected: items };
-        }
-
-        this.setState(state);
-    } else {
-        const result = move(
-            this.getList(source.droppableId),
-            this.getList(destination.droppableId),
-            source,
-            destination
-        );
-
-        this.setState({
-            items: result.droppable,
-            selected: result.droppable2
-        });
-    }
-};
-
-  render() {
-    const { alignItems, direction, justify,items,selected } = this.state;
-    const { classes } = this.props;
-
-
+  createElement(el) {
+    const removeStyle = {
+      position: "absolute",
+      right: "2px",
+      top: 0,
+      cursor: "pointer"
+    };
+    const i = el.add ? "+" : el.i;
     return (
-      
-        <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable" direction="horizontal">
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-            <Grid
-                className={classes.demo}
-                container
-                spacing={16}
-                alignItems={alignItems}
-                direction={direction}
-                justify={justify}
-            >
-            {items.map((i, index) => (
-                <Draggable key={i.id} draggableId={i.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      <Grid item xs={6} sm={3}>
-                        <Paper
-                          className={classes.paper}
-                          style={{
-                            paddingTop: 10,
-                            paddingBottom: 10
-                          }}
-                        >
-                          {i.content}
-                        </Paper>
-                      </Grid>                      
-                      
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              </Grid>
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-        <Droppable droppableId="droppable2" direction="horizontal">
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-            <Grid
-                className={classes.demo}
-                container
-                spacing={16}
-                alignItems={alignItems}
-                direction={direction}
-                justify={justify}
-            >
-            {selected.map((i, index) => (
-                <Draggable key={i.id} draggableId={i.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      <Grid item xs={6} sm={3}>
-                        <Paper
-                          className={classes.paper}
-                          style={{
-                            paddingTop: 10,
-                            paddingBottom: 10
-                          }}
-                        >
-                          {i.content}
-                        </Paper>
-                      </Grid>                      
-                      
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              </Grid>
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-        
-        </DragDropContext>
-     
-      // <DragDropContext onDragEnd={this.onDragEnd}>
-      //     <Grid
-      //       className={classes.demo}
-      //       container
-      //       spacing={16}
-      //       alignItems={alignItems}
-      //       direction={direction}
-      //       justify={justify}
-      //     >
-      //       <Grid item>
-      //         <Paper
-      //           className={classes.paper}
-      //           style={{
-      //             paddingTop: 10,
-      //             paddingBottom: 10
-      //           }}
-      //         >
-      //           <LineChartContainer />
-      //         </Paper>
-      //       </Grid>
-
-      //       <Grid item>
-      //         <Paper
-      //           className={classes.paper}
-      //           style={{
-      //             paddingTop: 10,
-      //             paddingBottom: 10
-      //           }}
-      //         >
-      //           <BarChartContainer />
-      //         </Paper>
-      //       </Grid>
-            
-      //       <Grid item>
-      //         <Paper
-      //           className={classes.paper}
-      //           style={{
-      //             paddingTop: 10,
-      //             paddingBottom: 10
-      //           }}
-      //         >
-      //           <ScatterPlotContainer />
-      //         </Paper>
-      //       </Grid>
-            
-      //       <Grid item>
-      //         <Paper
-      //           className={classes.paper}
-      //           style={{
-      //             paddingTop: 10,
-      //             paddingBottom: 10
-      //           }}
-      //         >
-      //           <AreaChartContainer />
-      //         </Paper>
-      //       </Grid>
-            
-      //       <Grid item>
-      //         <Paper
-      //           className={classes.paper}
-      //           style={{
-      //             paddingTop: 10,
-      //             paddingBottom: 10
-      //           }}
-      //         >
-      //           <PieChartContainer />
-      //         </Paper>
-      //       </Grid>
-          
-      //     </Grid>
-      //   </DragDropContext>
-    
+      <div key={i} data-grid={el}>
+        {el.add ? (
+          <span
+            className="add text"
+            onClick={this.onAddItem}
+            title="You can add an item by clicking here, too."
+          >
+            Add +
+          </span>
+        ) : (
+          <span className="text">{i}</span>
+        )}
+        <span
+          className="remove"
+          style={removeStyle}
+          onClick={this.onRemoveItem.bind(this, i)}
+        >
+        remove
+        </span>
+      </div>
     );
   }
+  onAddItem() {
+    /*eslint no-console: 0*/
+    console.log("adding", "n" + this.state.newCounter);
+    this.setState({
+      // Add a new item. It must have a unique key!
+      items: this.state.items.concat({
+        i: "n" + this.state.newCounter,
+        x: (this.state.items.length * 2) % (this.state.cols || 12),
+        y: Infinity, // puts it at the bottom
+        w: 2,
+        h: 2
+      }),
+      // Increment the counter to ensure key is always unique.
+      newCounter: this.state.newCounter + 1
+    });
+  }
+
+  // We're using the cols coming back from this to calculate where to add new items.
+  onBreakpointChange(breakpoint, cols) {
+    this.setState({
+      breakpoint: breakpoint,
+      cols: cols
+    });
+  }
+
+  onLayoutChange(layout) {
+    this.props.onLayoutChange(layout);
+    this.setState({ layout: layout });
+  }
+
+  onRemoveItem(i) {
+    console.log("removing", i);
+    this.setState({ items: _.reject(this.state.items, { i: i }) });
+  }
+
+  render() {
+
+    return (
+      <div>
+        <button onClick={this.onAddItem}>Add Item</button>
+        <ResponsiveReactGridLayout
+          onLayoutChange={this.onLayoutChange}
+          onBreakpointChange={this.onBreakpointChange}
+          {...this.props}
+        >
+          {_.map(this.state.items, el => this.createElement(el))}
+        </ResponsiveReactGridLayout>
+      </div>
+    )
+  }
+  // render() {
+  //   const { alignItems, direction, justify } = this.state;
+  //   const { classes } = this.props;
+
+  //   return (
+      
+  //         <Grid
+  //           className={classes.demo}
+  //           container
+  //           spacing={16}
+  //           alignItems={alignItems}
+  //           direction={direction}
+  //           justify={justify}
+  //         >
+  //           <Grid item>
+  //             <Paper
+  //               className={classes.paper}
+  //               style={{
+  //                 paddingTop: 10,
+  //                 paddingBottom: 10
+  //               }}
+  //             >
+  //               <LineChartContainer />
+  //             </Paper>
+  //           </Grid>
+
+  //           <Grid item>
+  //             <Paper
+  //               className={classes.paper}
+  //               style={{
+  //                 paddingTop: 10,
+  //                 paddingBottom: 10
+  //               }}
+  //             >
+  //               <BarChartContainer />
+  //             </Paper>
+  //           </Grid>
+            
+  //           <Grid item>
+  //             <Paper
+  //               className={classes.paper}
+  //               style={{
+  //                 paddingTop: 10,
+  //                 paddingBottom: 10
+  //               }}
+  //             >
+  //               <ScatterPlotContainer />
+  //             </Paper>
+  //           </Grid>
+            
+  //           <Grid item>
+  //             <Paper
+  //               className={classes.paper}
+  //               style={{
+  //                 paddingTop: 10,
+  //                 paddingBottom: 10
+  //               }}
+  //             >
+  //               <AreaChartContainer />
+  //             </Paper>
+  //           </Grid>
+            
+  //           <Grid item>
+  //             <Paper
+  //               className={classes.paper}
+  //               style={{
+  //                 paddingTop: 10,
+  //                 paddingBottom: 10
+  //               }}
+  //             >
+  //               <PieChartContainer />
+  //             </Paper>
+  //           </Grid>
+          
+  //         </Grid>
+    
+  //   );
+  // }
+
 }
 
-Layout.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+// Layout.propTypes = {
+//   classes: PropTypes.object.isRequired
+// };
 
-export default withStyles(styles)(Layout);
+// export default withStyles(styles)(Layout);
+module.exports = BasicLayout;
