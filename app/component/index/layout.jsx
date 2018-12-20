@@ -255,7 +255,7 @@
 // }
 
 
-import React from "react";
+import React, { Fragment } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -342,6 +342,8 @@ class BasicLayout extends React.PureComponent {
           <div>
             {comp}
           </div>
+            
+          
         )}
         <span
           className="remove"
