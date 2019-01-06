@@ -385,7 +385,7 @@ class BasicLayout extends React.PureComponent {
 
   onRemoveItem(i) {
     console.log("removing", i);
-    this.setState({ items: _.reject(this.state.items, { i: i }) });
+    this.props.onRemoveItem(i);
   }
 
   render() {

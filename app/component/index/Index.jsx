@@ -82,11 +82,17 @@ class Index extends React.Component {
       _this.setState({ items: itmes });
     }
 
+    let onRemoveItem = function(i) {
+      console.log("removing", i);
+      _this.setState({ items: _.reject(_this.state.items, { i: i }) });
+      console.log(_this.items.length);
+    }
+
     console.log(111);
     return (
       <div>
 
-        <BasicLayout onLayoutChange={onLayoutChange} items={this.state.items} />
+        <BasicLayout onLayoutChange={onLayoutChange} items={this.state.items} onRemoveItem = {onRemoveItem}/>
       </div>
       //   <Grid container className={classes.root} spacing={16}>
       //     <Grid item xs={12}>
