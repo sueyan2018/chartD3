@@ -66,7 +66,17 @@ class Index extends React.Component {
     let onLayoutChange = function (layout){
       console.log(layout);
       console.log(_this.state.items);
-      _this.setState({items: layout});
+      let itmes = _this.state.items.map(function(value,index){
+        //console.log('map遍历:'+index+'--'+value);
+        layout.map(function(valueL,indexL){
+          if(indexL == index){
+            value.h = valueL.h;
+            value.w = valueL.w;
+          }
+        });
+        return value;
+      });
+      _this.setState({items: itmes});
     }
 
     console.log(111);
