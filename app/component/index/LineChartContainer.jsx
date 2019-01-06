@@ -2,8 +2,9 @@ import React from "react";
 import { LineChart,Brush } from "react-d3-components";
 import { SizeMe } from 'react-sizeme';
 
-function LineChartContainer() {
+function LineChartContainer(x) {
 
+  console.log(x );
   let data = [
     {
       label: '',
@@ -121,7 +122,7 @@ function LineChartContainer() {
             <LineChart
                 data={data2}
                 width={size.width}
-                height={size.width}
+                height={x.y * 100}
                 margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
                 tooltipHtml={tooltipLine}
                 tooltipContained

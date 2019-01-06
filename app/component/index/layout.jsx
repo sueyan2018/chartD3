@@ -279,20 +279,17 @@ class BasicLayout extends React.PureComponent {
     onLayoutChange: function() {}
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      items : nextProps.items
+    })
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      items: [0, 1, 2, 3, 4].map(function(i, key, list) {
-        return {
-          i: i.toString(),
-          x: i * 2,
-          y: 0,
-          w: 2,
-          h: 3,
-          add: i === (list.length - 1).toString()
-        };
-      }),
+      items: props.items,
       counter: 5
     };
 
@@ -309,10 +306,10 @@ class BasicLayout extends React.PureComponent {
     };
     const i = el.add ? "+" : el.i;
 
-    let comp = <LineChartContainer />;
+    let comp = <LineChartContainer x={el.w} y={el.h} />;
     switch(i % 5){
       case 1:
-      comp = <LineChartContainer />;
+      comp = <LineChartContainer  x={el.w} y={el.h} />;
       break;
       case 2:
       comp = <BarChartContainer />;

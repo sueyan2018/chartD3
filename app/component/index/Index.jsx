@@ -43,7 +43,17 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            spacing: '16',
+            spacing: '16',    
+            items: [0, 1, 2, 3, 4].map(function(i, key, list) {
+              return {
+                i: i.toString(),
+                x: i * 2,
+                y: 0,
+                w: 2,
+                h: 3,
+                add: i === (list.length - 1).toString()
+              };
+            })
         };
     }
 
@@ -51,11 +61,19 @@ class Index extends React.Component {
     const { classes } = this.props;
     const { spacing } = this.state;
 
+    let _this = this;
+
+    let onLayoutChange = function (layout){
+      console.log(layout);
+      console.log(_this.state.items);
+      _this.setState({items: layout});
+    }
+
     console.log(111);
     return (
         <div>
             
-        <BasicLayout />
+        <BasicLayout onLayoutChange={onLayoutChange} items = {this.state.items}/>
         </div>
     //   <Grid container className={classes.root} spacing={16}>
     //     <Grid item xs={12}>
