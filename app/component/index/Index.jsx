@@ -40,22 +40,22 @@ const styles = theme => ({
 });
 
 class Index extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            spacing: '16',    
-            items: [0, 1, 2, 3, 4].map(function(i, key, list) {
-              return {
-                i: i.toString(),
-                x: i * 2,
-                y: 0,
-                w: 2,
-                h: 3,
-                add: i === (list.length - 1).toString()
-              };
-            })
+  constructor(props) {
+    super(props);
+    this.state = {
+      spacing: '16',
+      items: [0, 1, 2, 3, 4].map(function (i, key, list) {
+        return {
+          i: i.toString(),
+          x: i * 2,
+          y: 0,
+          w: 2,
+          h: 3,
+          add: i === (list.length - 1).toString()
         };
-    }
+      })
+    };
+  }
 
   render() {
     const { classes } = this.props;
@@ -63,49 +63,52 @@ class Index extends React.Component {
 
     let _this = this;
 
-    let onLayoutChange = function (layout){
+    let onLayoutChange = function (layout) {
       console.log(layout);
       console.log(_this.state.items);
-      let itmes = _this.state.items.map(function(value,index){
-        //console.log('map遍历:'+index+'--'+value);
-        layout.map(function(valueL,indexL){
-          if(indexL == index){
-            value.h = valueL.h;
-            value.w = valueL.w;
-          }
-        });
+      let itmes = _this.state.items.map(function (value) {
         return value;
       });
-      _this.setState({items: itmes});
+
+      //console.log('map遍历:'+index+'--'+value);
+      layout.map(function (valueL, indexL) {
+        if (indexL < itmes.length) {
+          itmes[indexL].h = valueL.h;
+          itmes[indexL].w = valueL.w;
+        } else {
+          itmes.push(valueL);
+        }
+      });
+      _this.setState({ items: itmes });
     }
 
     console.log(111);
     return (
-        <div>
-            
-        <BasicLayout onLayoutChange={onLayoutChange} items = {this.state.items}/>
-        </div>
-    //   <Grid container className={classes.root} spacing={16}>
-    //     <Grid item xs={12}>
-    //       <Grid container className={classes.demo} justify="left" spacing={Number(spacing)}>
-    //           <Grid item>
-    //             <BarChartContainer /> />
-    //           </Grid>
-    //           <Grid item>
-    //             <PieChartContainer />
-    //           </Grid>
-    //           <Grid item>
-    //           <LineChartContainer />
-    //           </Grid>
-    //           <Grid item>
-    //           <ScatterPlotContainer />
-    //           </Grid>
-    //           <Grid item>
-    //           <AreaChartContainer />
-    //           </Grid>
-    //       </Grid>
-    //     </Grid>
-    //   </Grid>
+      <div>
+
+        <BasicLayout onLayoutChange={onLayoutChange} items={this.state.items} />
+      </div>
+      //   <Grid container className={classes.root} spacing={16}>
+      //     <Grid item xs={12}>
+      //       <Grid container className={classes.demo} justify="left" spacing={Number(spacing)}>
+      //           <Grid item>
+      //             <BarChartContainer /> />
+      //           </Grid>
+      //           <Grid item>
+      //             <PieChartContainer />
+      //           </Grid>
+      //           <Grid item>
+      //           <LineChartContainer />
+      //           </Grid>
+      //           <Grid item>
+      //           <ScatterPlotContainer />
+      //           </Grid>
+      //           <Grid item>
+      //           <AreaChartContainer />
+      //           </Grid>
+      //       </Grid>
+      //     </Grid>
+      //   </Grid>
     );
   }
 }
