@@ -2,7 +2,7 @@ import React from "react";
 import { ScatterPlot } from "react-d3-components";
 import { SizeMe } from 'react-sizeme';
 
-function ScatterPlotContainer() {
+function ScatterPlotContainer(props) {
     let data = [
         {
             label: 'somethingA',
@@ -35,15 +35,16 @@ function ScatterPlotContainer() {
         <SizeMe
           monitorHeight
           refreshRate={32}
-          render={({ size }) =>
+          render={({ size }) => 
             <ScatterPlot
                 data={data}
                 width={size.width}
-                height={size.width}
+                height={props.y * 100 + (props.y-1) * 10}
                 margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
             />
-        }
-        />
+                        
+          }
+          />
     );
 }
 export default ScatterPlotContainer;

@@ -2,7 +2,7 @@ import React from "react";
 import { AreaChart } from "react-d3-components";
 import { SizeMe } from 'react-sizeme';
 
-function AreaChartContainer() {
+function AreaChartContainer(props) {
     let data = [
         {
             label: 'somethingA',
@@ -33,15 +33,16 @@ function AreaChartContainer() {
     ];
     return (
         <SizeMe
-          monitorHeight
-          refreshRate={32}
-          render={({ size }) =>
-        <AreaChart
-            data={data}
-            width={size.width}
-            height={size.width}
-            margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
-        />
+        monitorHeight
+        refreshRate={32}
+        render={({ size }) =>  
+        
+            <AreaChart
+                data={data}
+                width={size.width}
+                height={props.y * 100 + (props.y-1) * 10}
+                margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+            />
         }
         />
     );

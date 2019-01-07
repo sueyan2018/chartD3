@@ -2,7 +2,7 @@ import React from "react";
 import { BarChart } from "react-d3-components";
 import { SizeMe } from 'react-sizeme';
 
-function BarChartContainer() {
+function BarChartContainer(props) {
   let data = [
     {
       label: "somethingA",
@@ -34,17 +34,18 @@ function BarChartContainer() {
 ];
   return (
     <SizeMe
-          monitorHeight
-          refreshRate={32}
-          render={({ size }) =>
+    monitorHeight
+    refreshRate={32}
+    render={({ size }) =>  
+ 
         <BarChart
           data={data}
           width={size.width}
-          height={size.width}
+          height={props.y * 100 + (props.y-1) * 10}
           margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
         />
-      }
-      />
+    }
+    />  
   );
 
 }

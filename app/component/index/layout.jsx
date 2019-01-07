@@ -309,19 +309,19 @@ class BasicLayout extends React.PureComponent {
     let comp = <LineChartContainer x={el.w} y={el.h} />;
     switch(i % 5){
       case 1:
-      comp = <LineChartContainer  x={el.w} y={el.h} />;
+      comp = <LineChartContainer x={el.w} y={el.h} />;
       break;
       case 2:
-      comp = <BarChartContainer />;
+      comp = <BarChartContainer x={el.w} y={el.h}/>;
       break;
       case 3:
-      comp = <PieChartContainer />;
+      comp = <PieChartContainer x={el.w} y={el.h}/>;
       break;
       case 4:
-      comp = <ScatterPlotContainer />;
+      comp = <ScatterPlotContainer x={el.w} y={el.h}/>;
       break;
       default:
-      comp = <AreaChartContainer />;
+      comp = <AreaChartContainer x={el.w} y={el.h}/>;
       break;
 
     }
