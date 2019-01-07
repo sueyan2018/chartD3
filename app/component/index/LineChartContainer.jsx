@@ -118,21 +118,33 @@ function LineChartContainer(props) {
           monitorHeight
           refreshRate={32}
           render={({ size }) =>  
-            
-            <LineChart
-                data={data2}
-                width={size.width}
-                height={props.y * 100 + (props.y-1) * 10}
-                margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
-                tooltipHtml={tooltipLine}
-                tooltipContained
-                xAxis={{ innerTickSize: 1, className:"transTest",tickFormat: d3.time.format("%a,%b %d") }}
-                yAxis={{ label: "y-label" }}
-                shapeColor={"red"}
-            //stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
-            />
-           
-            
+            <div>
+              {/* <div width={size.width} className={"chartTitle"}> 
+                <span className={"chartName"}>
+                  <div>
+                  LineChart
+                  </div>
+                </span>
+                <div className={"controlBtn"}>
+                  <i>set</i>
+                  <i>big</i>
+                  <i>*</i>
+                </div>
+              </div> */}
+              <LineChart
+                  data={data2}
+                  width={size.width}
+                  height={props.y * 100 + (props.y-4) * 10}
+                  margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
+                  tooltipHtml={tooltipLine}
+                  tooltipContained
+                  xAxis={{ innerTickSize: 1, className:"transTest",tickFormat: d3.time.format("%a,%b %d") }}
+                  yAxis={{ label: "y-label" }}
+                  shapeColor={"red"}
+              //stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
+              />
+            </div>
+                      
           }
         />
       

@@ -266,6 +266,7 @@ import LineChartContainer from "./LineChartContainer.jsx";
 import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 
+import TitleControl from "./TitleControl.jsx";
 
 /**
  * This layout demonstrates how to use a grid with a dynamic number of elements.
@@ -327,6 +328,7 @@ class BasicLayout extends React.PureComponent {
     }
     return (
       <div key={i} data-grid={el}>
+        <TitleControl callbackDelete={this.onRemoveItem.bind(this, i)}/>
         {el.add ? (
           <span
             className="add text"
@@ -342,13 +344,15 @@ class BasicLayout extends React.PureComponent {
             
           
         )}
-        <span
+        
+        {/* <span
           className="remove"
           style={removeStyle}
           onClick={this.onRemoveItem.bind(this, i)}
         >
           x
-        </span>
+        </span> */}
+
       </div>
     );
   }

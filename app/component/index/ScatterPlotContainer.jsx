@@ -39,7 +39,7 @@ function ScatterPlotContainer(props) {
             <ScatterPlot
                 data={data}
                 width={size.width}
-                height={props.y * 100 + (props.y-1) * 10}
+                height={props.y * 100 + (props.y-4) * 10}
                 margin={{ top: 10, bottom: 30, left: 30, right: 10 }}
             />
                         
