@@ -2,7 +2,7 @@ import React from "react";
 
 function TitleControl(props) {
     let deleteItem = function (){
-        this.props.callbackDelete();
+        props.callbackDelete();
     }
     console.log(props.callbackDelete);
     
@@ -18,7 +18,7 @@ function TitleControl(props) {
             <div className={"controlBtn"}>
             <i>set</i>
             <i>big</i>
-            <i onclick={props.callbackDelete()}>*</i>
+            <i onClick={() => deleteItem()}>*</i>
             </div>
         </div>
        
