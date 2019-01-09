@@ -268,6 +268,7 @@ import AreaChartContainer from "./AreaChartContainer.jsx";
 
 import TitleControl from "./TitleControl.jsx";
 import SimpleMenu from './DropMenu.jsx';
+import CustomizedDialogDemo from './setDialog.jsx';
 
 import Series from "./LineChartHolder.jsx";
 import Groupedcolumn from './BarChartHolder.jsx';
@@ -408,7 +409,8 @@ class BasicLayout extends React.PureComponent {
     return (
       <div>
         <button onClick={this.onAddItem}>Add Item</button>
-        <SimpleMenu />
+        {/* <SimpleMenu /> */}
+        <CustomizedDialogDemo />
         <ResponsiveReactGridLayout
           onLayoutChange={this.onLayoutChange}
           onBreakpointChange={this.onBreakpointChange}
