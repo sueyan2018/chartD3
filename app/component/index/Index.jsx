@@ -58,8 +58,6 @@ class Index extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { spacing } = this.state;
 
     let _this = this;
 
@@ -83,12 +81,11 @@ class Index extends React.Component {
     }
 
     let onRemoveItem = function(i) {
-      console.log("removing", i);
+      //console.log("removing", i);
       _this.setState({ items: _.reject(_this.state.items, { i: i }) });
-      console.log(_this.items.length);
+      //console.log(_this.items.length);
     }
 
-    console.log(111);
     return (
       <div>
 
