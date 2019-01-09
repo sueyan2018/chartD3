@@ -1,4 +1,5 @@
 import React from "react";
+import SimpleMenu from './DropMenu.jsx';
 
 function TitleControl(props) {
     let deleteItem = function (){
@@ -8,7 +9,11 @@ function TitleControl(props) {
     let setItem = function (){
         props.callbackSet();
     }
-  
+    
+    let saveItem = function (){
+        props.callbackSave();
+    }
+
     return (
                 
         <div className={"chartTitle"}> 
@@ -18,8 +23,7 @@ function TitleControl(props) {
             </div>
             </span>
             <div className={"controlBtn"}>
-            <i onClick={() => setItem()}>set</i>
-            <i>big</i>
+            {/* <SimpleMenu /> */}
             <i onClick={() => deleteItem()}>*</i>
             </div>
         </div>
