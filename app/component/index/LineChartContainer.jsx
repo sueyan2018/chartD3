@@ -4,7 +4,6 @@ import { SizeMe } from 'react-sizeme';
 
 function LineChartContainer(props) {
 
-  console.log(props );
   let data = [
     {
       label: '',
@@ -140,8 +139,8 @@ function LineChartContainer(props) {
                   tooltipContained
                   xAxis={{ innerTickSize: 1, className:"transTest",tickFormat: d3.time.format("%a,%b %d") }}
                   yAxis={{ label: "y-label" }}
-                  shapeColor={"red"}
-              //stroke={{ strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
+                  shapeColor={"red"}                  
+                  //stroke={{  strokeDasharray: dashFunc, strokeWidth: widthFunc, strokeLinecap: linecapFunc }}
               />
             </div>
                       

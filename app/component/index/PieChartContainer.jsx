@@ -38,7 +38,6 @@ function PieChartContainer(props) {
     return x + ": " + y.toString();
   };
 
-  console.log(data);
   return (
     
     <SizeMe

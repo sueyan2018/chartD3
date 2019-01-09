@@ -4,19 +4,21 @@ function TitleControl(props) {
     let deleteItem = function (){
         props.callbackDelete();
     }
-    console.log(props.callbackDelete);
-    
+
+    let setItem = function (){
+        props.callbackSet();
+    }
+  
     return (
-         
-        
+                
         <div className={"chartTitle"}> 
             <span className={"chartName"}>
             <div>
-            LineChart
+            {props.title}
             </div>
             </span>
             <div className={"controlBtn"}>
-            <i>set</i>
+            <i onClick={() => setItem()}>set</i>
             <i>big</i>
             <i onClick={() => deleteItem()}>*</i>
             </div>

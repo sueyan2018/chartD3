@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@antv/data-set": "^0.10.1",
     "@material-ui/core": "^3.6.2",
+    "bizcharts": "^3.4.2",
     "react": "^16.6.3",
     "react-beautiful-dnd": "^10.0.3",
     "react-d3-components": "^0.9.1",
