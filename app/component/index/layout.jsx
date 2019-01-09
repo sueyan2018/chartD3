@@ -268,12 +268,6 @@ import AreaChartContainer from "./AreaChartContainer.jsx";
 
 import TitleControl from "./TitleControl.jsx";
 
-
-import Series from "./LineChartHolder.jsx";
-import Groupedcolumn from './BarChartHolder.jsx';
-import Labelline from './PieChartHolder.jsx';
-import PointC from './ScatterPlotChartHolder';
-import Percent from './AreaChartHolder.jsx';
 /**
  * This layout demonstrates how to use a grid with a dynamic number of elements.
  */
@@ -313,31 +307,28 @@ class BasicLayout extends React.PureComponent {
     };
     const i = el.add ? "+" : el.i;
 
-    //let comp = <LineChartContainer x={el.w} y={el.h} />;
-    let comp = <Series x={el.w} y={el.h}/>;
+    let comp = <LineChartContainer x={el.w} y={el.h} />;
     switch(i % 5){
       case 1:
-      comp = <Series x={el.w} y={el.h}/>;
-      //comp = <LineChartContainer x={el.w} y={el.h} />;
+      comp = <LineChartContainer x={el.w} y={el.h} />;
       break;
       case 2:
-      comp = <Groupedcolumn  x={el.w} y={el.h} />
-      //comp = <BarChartContainer x={el.w} y={el.h} />;
+      comp = <BarChartContainer x={el.w} y={el.h}/>;
       break;
       case 3:
-      comp = <Labelline x={el.w} y={el.h} />;
+      comp = <PieChartContainer x={el.w} y={el.h}/>;
       break;
       case 4:
-      comp = <PointC x={el.w} y={el.h} />;
+      comp = <ScatterPlotContainer x={el.w} y={el.h}/>;
       break;
       default:
-      comp = <Percent x={el.w} y={el.h} />;
+      comp = <AreaChartContainer x={el.w} y={el.h}/>;
       break;
 
     }
     return (
       <div key={i} data-grid={el}>
-        <TitleControl callbackSet={this.onSetItem.bind(this, i)} callbackDelete={this.onRemoveItem.bind(this, i)} title={"Chart"+i}/>
+        <TitleControl callbackDelete={this.onRemoveItem.bind(this, i)}/>
         {el.add ? (
           <span
             className="add text"
@@ -397,13 +388,10 @@ class BasicLayout extends React.PureComponent {
   }
 
   onRemoveItem(i) {
-    //console.log("removing", i);
+    console.log("removing", i);
     this.props.onRemoveItem(i);
   }
 
-  onSetItem(i){
-    console.log(i);
-  }
   render() {
     return (
       <div>
