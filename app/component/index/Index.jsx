@@ -24,6 +24,7 @@ import LineChartContainer from "./LineChartContainer.jsx";
 import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 import BasicLayout from "./layout.jsx";
+import SimpleMenu from "./Menu.jsx";
 
 
 const styles = theme => ({
@@ -88,6 +89,7 @@ class Index extends React.Component {
 
     return (
       <div>
+        <SimpleMenu />
 
         <BasicLayout onLayoutChange={onLayoutChange} items={this.state.items} onRemoveItem = {onRemoveItem}/>
       </div>
