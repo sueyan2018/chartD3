@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleMenu from './DropMenu.jsx';
+import SimpleMenu from './Menu.jsx';
 
 function TitleControl(props) {
     let deleteItem = function (){
@@ -23,8 +23,8 @@ function TitleControl(props) {
             </div>
             </span>
             <div className={"controlBtn"}>
-            {/* <SimpleMenu /> */}
-            <i onClick={() => deleteItem()}>*</i>
+            <SimpleMenu />
+            <i onClick={() => deleteItem()}>×</i>
             </div>
         </div>
        

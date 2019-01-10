@@ -267,7 +267,7 @@ import ScatterPlotContainer from "./ScatterPlotContainer.jsx";
 import AreaChartContainer from "./AreaChartContainer.jsx";
 
 import TitleControl from "./TitleControl.jsx";
-import SimpleMenu from './DropMenu.jsx';
+import SimpleTable from './table.jsx';
 import CustomizedDialogDemo from './setDialog.jsx';
 
 import Series from "./LineChartHolder.jsx";
@@ -409,7 +409,7 @@ class BasicLayout extends React.PureComponent {
     return (
       <div>
         <button onClick={this.onAddItem}>Add Item</button>
-        {/* <SimpleMenu /> */}
+        
         <CustomizedDialogDemo />
         <ResponsiveReactGridLayout
           onLayoutChange={this.onLayoutChange}

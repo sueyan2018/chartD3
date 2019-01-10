@@ -9,6 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 //import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
+import SimpleTable from './table.jsx';
+import AlignItemsList from './lists.jsx';
+
 const DialogTitle = withStyles(theme => ({
   root: {
     borderBottom: `1px solid ${theme.palette.divider}`,
@@ -28,7 +31,7 @@ const DialogTitle = withStyles(theme => ({
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
         <IconButton aria-label="Close" className={classes.closeButton} onClick={onClose}>
-          {/* <CloseIcon /> */}close
+          {/* <CloseIcon /> */} ❌
         </IconButton>
       ) : null}
     </MuiDialogTitle>
@@ -77,27 +80,26 @@ class CustomizedDialogDemo extends React.Component {
           open={this.state.open}
         >
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            Modal title
+            Edit Component
           </DialogTitle>
           <DialogContent>
+            
             <Typography gutterBottom>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
+              Title
             </Typography>
+            <AlignItemsList />
+
             <Typography gutterBottom>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
+              Content Style
             </Typography>
-            <Typography gutterBottom>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </Typography>
+            <AlignItemsList />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Save changes
+              Save 
+            </Button>
+            <Button onClick={this.handleClose} >
+              Cancel
             </Button>
           </DialogActions>
         </Dialog>
