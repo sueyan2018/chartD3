@@ -1,0 +1,67 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add @material-ui/icons
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.12.3
+
+Node version: 
+  10.13.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EACCES: permission denied, scandir '/Users/sueyan/.config/yarn/link'
+
+npm manifest: 
+  {
+    "name": "react2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "dev": "webpack-dev-server --devtool eval --progress --colors --profile --config config/webpack/webpack.dev.conf.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@antv/data-set": "^0.10.1",
+      "@material-ui/core": "^1.4.1",
+      "bizcharts": "^3.4.3",
+      "react": "^16.6.3",
+      "react-beautiful-dnd": "^10.0.3",
+      "react-color": "^2.17.0",
+      "react-d3-components": "^0.9.1",
+      "react-dom": "^16.3.0",
+      "react-grid-layout": "^0.16.6",
+      "react-hyperscript": "^3.2.0",
+      "react-sizeme": "^2.5.2",
+      "reactcss": "^1.2.3"
+    },
+    "devDependencies": {
+      "babel-cli": "^6.26.0",
+      "babel-loader": "^7.1.4",
+      "babel-plugin-transform-class-properties": "^6.24.1",
+      "babel-preset-env": "^1.6.1",
+      "babel-preset-es2015": "^6.24.1",
+      "babel-preset-react": "^6.24.1",
+      "babel-preset-react-hmre": "^1.1.1",
+      "babel-preset-stage-0": "^6.24.1",
+      "material-ui": "^0.20.2",
+      "webpack": "^4.4.1",
+      "webpack-cli": "^2.0.13",
+      "webpack-dev-server": "^3.1.1",
+      "webpack-merge": "^4.1.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

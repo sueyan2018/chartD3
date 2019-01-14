@@ -85,7 +85,7 @@ class Series extends React.Component {
       // key字段
       value: "temperature" // value字段
     });
-    console.log(dv);
+    //console.log(dv);
     const cols = {
       month: {
         range: [0, 1]

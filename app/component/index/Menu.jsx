@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import CustomizedDialogDemo from './setDialog.jsx';
 
 class SimpleMenu extends React.Component {
   state = {
@@ -14,6 +15,7 @@ class SimpleMenu extends React.Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+
   };
 
   render() {
@@ -34,9 +36,10 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Edit style</MenuItem>
+          <CustomizedDialogDemo title={"Edit style"} closeMenu={this.handleClose.bind(this)}/>
+          {/* <MenuItem onClick={this.handleClose}>Edit style</MenuItem>
           <MenuItem onClick={this.handleClose}>Edit content</MenuItem>
-          <MenuItem onClick={this.handleClose}>Clear</MenuItem>
+          <MenuItem onClick={this.handleClose}>Clear</MenuItem> */}
         </Menu>
       </div>
     );

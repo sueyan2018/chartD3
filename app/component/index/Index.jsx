@@ -63,8 +63,8 @@ class Index extends React.Component {
     let _this = this;
 
     let onLayoutChange = function (layout) {
-      console.log(layout);
-      console.log(_this.state.items);
+      //console.log(layout);
+      //console.log(_this.state.items);
       let itmes = _this.state.items.map(function (value) {
         return value;
       });
