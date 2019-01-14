@@ -82,7 +82,6 @@ class CustomizedDialogDemo extends React.Component {
   render() {
 
     let {title} = this.props;
-    
     return (
       <div>
         <Button onClick={this.handleClickOpen}>

@@ -35,14 +35,25 @@ class AlignItemsList extends React.Component {
     super(props);
 
     this.state = {
-      color:''
+      color:'',
+      textFieldValue:''
     }; 
   };
 
-  handleColor = (event) =>{
-    console.log("!!!!x"+event)
-      this.setState({color: event.target.value});
-      
+  handleColor = (color) =>{
+      console.log(color)
+      this.setState({color: color.hex});      
+  };
+
+  handleColorMore = (color) => {
+   
+    //this.setState({ color: color.rgb })
+    this.props.handleColor(color);
+  };
+
+  handleTextFieldChange = event => {
+    console.log(this.refs.textfield.getValue())
+    this.setState({ textFieldValue: event.target.value });
   };
 
   render() {
@@ -56,6 +67,7 @@ class AlignItemsList extends React.Component {
           <ListItemText  className={classes.itemText } primary="Text" />
           <TextField
             id="filled-full-width"
+            ref="textfield"
             //label="Label"
             style={{ margin: 8 }}
             placeholder="Title"
@@ -67,7 +79,7 @@ class AlignItemsList extends React.Component {
               shrink: true,
             }}
             // value={this.state.textFieldValue} 
-            // onChange={this._handleTextFieldChange}
+             onChange={this.handleTextFieldChange}
           />       
         </ListItem>
         <ListItem alignItems="center">        
@@ -87,8 +99,7 @@ class AlignItemsList extends React.Component {
         </ListItem>
         <ListItem alignItems="center">        
           <ListItemText className={classes.itemText } primary="Color" />
-          <div>{this.state.color}</div>
-          <SketchExample handleColor={this.handleColor.bind(this)}/>
+          <SketchExample onChange={ this.handleColorMore } handleColor={this.handleColor.bind(this)}/>
         </ListItem>
       </List>
     );

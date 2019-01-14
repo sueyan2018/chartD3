@@ -24,8 +24,10 @@ class SketchExample extends React.Component {
   };
 
   handleChange = (color) => {
+   
     this.setState({ color: color.rgb })
-    this.props.handleColor();
+   
+    this.props.handleColor(color);
   };
 
 
@@ -37,6 +39,7 @@ class SketchExample extends React.Component {
           width: '36px',
           height: '14px',
           borderRadius: '2px',
+          //background: color.hex
           background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
         },
         swatch: {
