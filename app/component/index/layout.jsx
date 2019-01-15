@@ -300,7 +300,11 @@ class BasicLayout extends React.PureComponent {
 
     this.state = {
       items: props.items,
-      counter: 5
+      counter: 5,
+      backgroudColor:'',
+      borderColor:'',
+      backgroudColorStyle:'',
+      borderColorStyle:'',
     };
 
     this.onAddItem = this.onAddItem.bind(this);
@@ -339,8 +343,16 @@ class BasicLayout extends React.PureComponent {
 
     }
     return (
-      <div key={i} data-grid={el}>
-        <TitleControl callbackSet={this.onSetItem.bind(this, i)} callbackDelete={this.onRemoveItem.bind(this, i)} onTitle={this.onTitle.bind(this, i)} title={"chart"+i}/>
+      <div key={i} data-grid={el} style={{backgroundColor:this.state.backgroudColorStyle,border:'1px solid'+this.state.borderColorStyle}}>
+        <TitleControl 
+        callbackSet={this.onSetItem.bind(this, i)} 
+        callbackDelete={this.onRemoveItem.bind(this, i)} 
+        onTitle={this.onTitle.bind(this, i)} 
+        title={"chart"+i}
+        handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this)}
+        handleBorderColorLayout={this.handleBorderColorLayout.bind(this)}
+        saveContent={this.saveContent.bind(this)}
+        />
         {el.add ? (
           <span
             className="add text"
@@ -417,13 +429,30 @@ console.log("layout####",value)
 
   }
 
+  handleBackgoudColorLayout = (color) =>{
+    console.log("handleBackgoudColorLayout",color)
+    this.setState({backgroudColor: color.hex});       
+  };
+
+  handleBorderColorLayout = (color) =>{
+    console.log("handleBorderColorLayout",color)
+    this.setState({borderColor: color.hex});        
+  };
+
+  saveContent(){
+    console.log("#####",this.state.backgroudColor,"#####",this.state.borderColor,)
+         this.setState({
+            backgroudColorStyle: this.state.backgroudColor,
+            borderColorStyle: this.state.borderColor,
+         })
+  }
   render() {
     return (
       <div>
         <button onClick={this.onAddItem}>Add Item</button>
         
-        <CustomizedDialogDemo />
         <ResponsiveReactGridLayout
+
           onLayoutChange={this.onLayoutChange}
           onBreakpointChange={this.onBreakpointChange}
           {...this.props}

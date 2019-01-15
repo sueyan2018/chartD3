@@ -74,8 +74,8 @@ body{
   line-height: 30px;
   font-weight: 600;
   font-size: 1.0769230769rem;
-  background: #eee;
-  border-bottom: 1px solid #bbb;
+  /* background: #eee;
+  border-bottom: 1px solid #bbb; */
   padding: 0 8px 0;
   display: -webkit-box;
   display: -webkit-flex;

@@ -42,12 +42,15 @@ class TitleControl extends React.Component {
       };
 
       handleBackgoudColorTitle = (color) =>{
-        console.log("handleBackgoudColorTitle",color)
-        this.setState({backgroudColor: color.hex});       
+        console.log("handleBackgoudColorTitle",color);
+        this.props.handleBackgoudColorLayout(color);
+        //this.setState({backgroudColor: color.hex});       
       };
+
       handleBorderColorTitle = (color) =>{
         console.log("handleBorderColorTitle",color)
-        this.setState({borderColor: color.hex});        
+        this.props.handleBorderColorLayout(color);
+        //this.setState({borderColor: color.hex});        
       };
 
       handleTabsTitle = (value) =>{
@@ -82,11 +85,12 @@ class TitleControl extends React.Component {
       }
 
       saveInContent(){
- console.log("#####",this.state.backgroudColor,"#####",this.state.borderColor,)
-         this.setState({
-            backgroudColorStyle: this.state.backgroudColor,
-            borderColorStyle: this.state.borderColor,
-         })
+        //console.log("#####",this.state.backgroudColor,"#####",this.state.borderColor,)
+        this.props.saveContent();
+        //  this.setState({
+        //     backgroudColorStyle: this.state.backgroudColor,
+        //     borderColorStyle: this.state.borderColor,
+        //  })
        }
 
     render() {
@@ -94,7 +98,7 @@ class TitleControl extends React.Component {
                     
             <div className={"chartTitle"}> 
                 <span className={"chartName"}>
-                    <div className={this.state.titleStyle} style={{color:this.state.colorStyle,backgroundColor:this.state.backgroudColorStyle,border:'1px solid'+this.state.borderColorStyle}}>
+                    <div className={this.state.titleStyle} style={{color:this.state.colorStyle}}>
                         {this.props.title}
                     </div>
                 </span>
