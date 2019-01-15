@@ -123,6 +123,12 @@ body{
   padding: 4px 6px;
 }
 
-.textAlignCenter{
+.titleStyleLeft{
   text-align: left;
+}
+.titleStyleCenter{
+  text-align: center;
+}
+.titleStyleRight{
+  text-align: right;
 }

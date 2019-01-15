@@ -1,18 +1,6 @@
 import React from "react";
 import SimpleMenu from './Menu.jsx';
 
-let titleStyleLeft = {
-    textAlign: "left",
-};
-
-let titleStyleCenter = {
-    textAlign: "center",
-};
-
-let titleStyleRight = {
-    textAlign: "right",
-};
-
 class TitleControl extends React.Component {
 //function TitleControl(props) {
     // let deleteItem = function (){
