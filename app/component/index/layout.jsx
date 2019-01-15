@@ -301,10 +301,10 @@ class BasicLayout extends React.PureComponent {
     this.state = {
       items: props.items,
       counter: 5,
-      backgroudColor:['#111','#222','#333','#444','#555'],
-      borderColor:['#111','#222','#333','#444','#555'],
-      backgroudColorStyle:['#111','#222','#333','#444','#555'],
-      borderColorStyle:['#111','#222','#333','#444','#555'],
+      backgroudColor:['#fff','#fff','#fff','#fff','#fff'],
+      borderColor:['#fff','#fff','#fff','#fff','#fff'],
+      backgroudColorStyle:['#fff','#fff','#fff','#fff','#fff'],
+      borderColorStyle:['#fff','#fff','#fff','#fff','#fff'],
     };
 
     this.onAddItem = this.onAddItem.bind(this);
@@ -343,7 +343,7 @@ class BasicLayout extends React.PureComponent {
 
     }
     return (
-      <div key={i} data-grid={el} style={{backgroundColor:this.state.backgroudColorStyle,border:'1px solid'+this.state.borderColorStyle}}>
+      <div key={i} data-grid={el} style={{backgroundColor:this.state.backgroudColorStyle[i],border:'1px solid'+this.state.borderColorStyle[i]}}>
         <TitleControl 
         callbackSet={this.onSetItem.bind(this, i)} 
         callbackDelete={this.onRemoveItem.bind(this, i)} 
