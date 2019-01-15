@@ -32,7 +32,7 @@ class TitleControl extends React.Component {
       };
 
       handleColorTitle = (color) =>{
-          console.log("Title####",color)
+          console.log("Title####",color.hex)
           this.setState({color: color.hex});      
       };
     
@@ -65,7 +65,7 @@ class TitleControl extends React.Component {
                     
             <div className={"chartTitle"}> 
                 <span className={"chartName"}>
-                    <div className={this.state.titleStyle}>
+                    <div className={this.state.titleStyle} style={{color:this.state.color}}>
                         {this.props.title}
                     </div>
                 </span>

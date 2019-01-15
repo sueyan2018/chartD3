@@ -46,7 +46,6 @@ class AlignItemsList extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value: value });
-    console.log(this.props);
     this.props.handleTabsDialog(value);  
   };
 
