@@ -73,26 +73,34 @@ class CustomizedDialogDemo extends React.Component {
 
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    }; 
-  };
-
-  handleColorDialog = (color) =>{
-      console.log("Dialog####",color)
-      this.props.handleColorMenu(color);        
+  saveInDialog = () => {
+    
+    this.props.saveInMenu();
+    this.handleClose();
   };
 
   handleTabsDialog = (value) =>{
     console.log("Dialog####",value)
     this.props.handleTabsMenu(value);        
-};
+  };
+
+  handleColorDialog = (color) =>{
+      console.log("handleColorDialog####",color)
+      this.props.handleColorMenu(color);        
+  };
+
+  handleBackgoudColorDialog = (color) =>{
+    console.log("handleBackgoudColorDialog",color)
+    this.props.handleBackgoudColorMenu(color);      
+  };
+  handleBorderColorDialog = (color) =>{
+    console.log("handleBorderColorDialog",color)
+    this.props.handleBorderColorMenu(color);      
+  };
 
   render() {
 
-    let {title} = this.props;
+    let {title,type} = this.props;
     return (
       <div>
         <Button onClick={this.handleClickOpen}>
@@ -105,19 +113,23 @@ class CustomizedDialogDemo extends React.Component {
           scroll={'paper'}
         >
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            Edit Component
+            { title}
           </DialogTitle>
+          
           <DialogContent>
+          
+            <AlignItemsList 
+              type={type}
+              handleTabsDialog={this.handleTabsDialog.bind(this)} 
+              handleColorDialog={this.handleColorDialog.bind(this)} 
+              handleBackgoudColorDialog={this.handleBackgoudColorDialog.bind(this)} 
+              handleBorderColorDialog={this.handleBorderColorDialog.bind(this)} 
+            />
             
-            <Typography gutterBottom>
-              Title
-            </Typography>
-            <AlignItemsList handleTabsDialog={this.handleTabsDialog.bind(this)} handleColorDialog={this.handleColorDialog.bind(this)} />
-            {/* <Divider /> */}
           </DialogContent>
 
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.saveInDialog} color="primary">
               Save 
             </Button>
             <Button onClick={this.handleClose} >

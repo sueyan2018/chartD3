@@ -50,9 +50,18 @@ class AlignItemsList extends React.Component {
   };
 
   handleColor = (color) =>{
-    
-      console.log("list####",color)
+      console.log("list####handleColor",color)
       this.props.handleColorDialog(color);      
+  };
+
+  handleBackgoudColor = (color) =>{
+    console.log("list####handleBackgoudColor",color)
+    this.props.handleBackgoudColorDialog(color);      
+  };
+  
+  handleBorderColor= (color) =>{
+    console.log("list####handleBorderColor",color)
+    this.props.handleBorderColorDialog(color);      
   };
 
   handleTextFieldChange = event => {
@@ -62,11 +71,16 @@ class AlignItemsList extends React.Component {
 
   render() {
 //function AlignItemsList(props) {
-    const { classes } = this.props;
+    const { classes,type } = this.props;
 
     return (
-      <List className={classes.root}>
+      <div>
+    
+      {
+        type == 1 ?
 
+      <List className={classes.root}>
+      
         <ListItem alignItems="center">        
           <ListItemText  className={classes.itemText } primary="Text" />
           <TextField
@@ -86,6 +100,7 @@ class AlignItemsList extends React.Component {
              onChange={this.handleTextFieldChange}
           />       
         </ListItem>
+        
         <ListItem alignItems="center">        
           <ListItemText className={classes.itemText } primary="Alignment" />
           <div>
@@ -94,21 +109,11 @@ class AlignItemsList extends React.Component {
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
-            //variant="fullWidth"
           >
             <Tab className={classes.tabBtn} label="Left" />
             <Tab className={classes.tabBtn} label="Center" />
             <Tab className={classes.tabBtn} label="Right" />
           </Tabs>
-              {/* <Button variant="outlined" className={classes.button}>
-                  Left
-              </Button>
-              <Button variant="outlined" className={classes.button}>
-                  Center
-              </Button>
-              <Button variant="outlined" className={classes.button}>
-                  Right
-              </Button> */}
           </div>
           
         </ListItem>
@@ -116,7 +121,24 @@ class AlignItemsList extends React.Component {
           <ListItemText className={classes.itemText } primary="Color" />
           <SketchExample handleColor={this.handleColor.bind(this)}/>
         </ListItem>
+      
       </List>
+
+      :
+
+      <List className={classes.root}>
+        <ListItem alignItems="center">        
+          <ListItemText className={classes.itemText } primary="BackgroundColor" />
+          <SketchExample handleColor={this.handleBackgoudColor.bind(this)}/>
+        </ListItem>
+        <ListItem alignItems="center">        
+          <ListItemText className={classes.itemText } primary="BorderColor" />
+          <SketchExample handleColor={this.handleBorderColor.bind(this)}/>
+        </ListItem>
+      </List>
+          
+      }
+       </div>
     );
   }
 }
