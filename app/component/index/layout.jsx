@@ -351,7 +351,7 @@ class BasicLayout extends React.PureComponent {
         title={"chart"+i}
         handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this)}
         handleBorderColorLayout={this.handleBorderColorLayout.bind(this)}
-        saveContent={this.saveContent.bind(this)}
+        saveContent={this.saveContent.bind(this,i)}
         />
         {el.add ? (
           <span
@@ -439,8 +439,8 @@ console.log("layout####",value)
     this.setState({borderColor: color.hex});        
   };
 
-  saveContent(){
-    console.log("#####",this.state.backgroudColor,"#####",this.state.borderColor,)
+  saveContent(i){
+    console.log("#####",this.state.backgroudColor,"#####",this.state.borderColor,"   " +i)
          this.setState({
             backgroudColorStyle: this.state.backgroudColor,
             borderColorStyle: this.state.borderColor,
@@ -454,7 +454,8 @@ console.log("layout####",value)
         <ResponsiveReactGridLayout
 
           onLayoutChange={this.onLayoutChange}
-          onBreakpointChange={this.onBreakpointChange}
+          onBreakpointChange={this.onBreakpointChange}          
+          draggableCancel="input,textarea"
           {...this.props}
         >
           {_.map(this.state.items, el => this.createElement(el))}
