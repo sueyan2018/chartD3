@@ -18,19 +18,18 @@ class SimpleMenu extends React.Component {
 
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      color:''
-    }; 
+  handleColorMenu = (color) =>{
+      console.log("Menu####",color)
+      
+      this.props.handleColorTitle(color);        
+       
   };
 
-  handleColor = (color) =>{
-      console.log(color)
-      this.setState({color: color.hex});      
+  handleTabsMenu = (value) =>{
+    console.log("Menu####",value)
+    this.props.handleTabsTitle(value);          
   };
-  
+
   render() {
     const { anchorEl } = this.state;
 
@@ -49,7 +48,7 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <CustomizedDialogDemo handleColor={this.handleColor.bind(this)} title={"Edit style"} closeMenu={this.handleClose.bind(this)}/>
+          <CustomizedDialogDemo handleTabsMenu={this.handleTabsMenu.bind(this)} handleColorMenu={this.handleColorMenu.bind(this)} title={this.props.title} closeMenu={this.handleClose.bind(this)}/>
           {/* <MenuItem onClick={this.handleClose}>Edit style</MenuItem>
           <MenuItem onClick={this.handleClose}>Edit content</MenuItem>
           <MenuItem onClick={this.handleClose}>Clear</MenuItem> */}

@@ -1,34 +1,62 @@
 import React from "react";
 import SimpleMenu from './Menu.jsx';
 
-function TitleControl(props) {
-    let deleteItem = function (){
-        props.callbackDelete();
-    }
+class TitleControl extends React.Component {
+//function TitleControl(props) {
+    // let deleteItem = function (){
+    //     props.callbackDelete();
+    // }
 
-    let setItem = function (){
-        props.callbackSet();
-    }
+    // let setItem = function (){
+    //     props.callbackSet();
+    // }
     
-    let saveItem = function (){
-        props.callbackSave();
+    // let saveItem = function (){
+    //     props.callbackSave();
+    // }
+
+      constructor(props) {
+        super(props);
+    
+        this.state = {
+          color:'',
+          value:0
+        }; 
+      };
+
+      deleteItem = () =>{
+        this.props.callbackDelete();
+      };
+
+      handleColorTitle = (color) =>{
+          console.log("Title####",color)
+          this.setState({color: color.hex});      
+      };
+    
+      handleTabsTitle = (value) =>{
+        console.log("Title####",value)
+        this.setState({value: value});      
+      };
+
+    render() {
+        return (
+                    
+            <div className={"chartTitle"}> 
+                <span className={"chartName"}>
+                <div>
+                {this.props.title}
+                </div>
+                </span>
+                <div className={"controlBtn"}>
+                <SimpleMenu handleTabsTitle={this.handleTabsTitle.bind(this)} handleColorTitle={this.handleColorTitle.bind(this)} title={"Edit style"}/>
+                <i onClick={() => deleteItem()}>×</i>
+                </div>
+            </div>
+        
+            
+        );
     }
 
-    return (
-                
-        <div className={"chartTitle"}> 
-            <span className={"chartName"}>
-            <div>
-            {props.title}
-            </div>
-            </span>
-            <div className={"controlBtn"}>
-            <SimpleMenu />
-            <i onClick={() => deleteItem()}>×</i>
-            </div>
-        </div>
-       
-        
-    );
 }
+
 export default TitleControl;

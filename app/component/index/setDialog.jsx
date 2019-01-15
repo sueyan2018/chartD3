@@ -8,8 +8,6 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 //import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import SimpleTable from './table.jsx';
 import AlignItemsList from './lists.jsx';
 
 const DialogTitle = withStyles(theme => ({
@@ -67,10 +65,6 @@ class CustomizedDialogDemo extends React.Component {
     this.setState({
       open: true,
     });
-    //let handleCloseMenu = function (){
-      
-    //}
-    
   };
 
   handleClose = () => {
@@ -78,6 +72,23 @@ class CustomizedDialogDemo extends React.Component {
     this.props.closeMenu();
 
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+    }; 
+  };
+
+  handleColorDialog = (color) =>{
+      console.log("Dialog####",color)
+      this.props.handleColorMenu(color);        
+  };
+
+  handleTabsDialog = (value) =>{
+    console.log("Dialog####",value)
+    this.props.handleTabsMenu(value);        
+};
 
   render() {
 
@@ -101,7 +112,7 @@ class CustomizedDialogDemo extends React.Component {
             <Typography gutterBottom>
               Title
             </Typography>
-            <AlignItemsList />
+            <AlignItemsList handleTabsDialog={this.handleTabsDialog.bind(this)} handleColorDialog={this.handleColorDialog.bind(this)} />
             {/* <Divider /> */}
           </DialogContent>
 
