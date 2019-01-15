@@ -1,6 +1,18 @@
 import React from "react";
 import SimpleMenu from './Menu.jsx';
 
+let titleStyleLeft = {
+    textAlign: "left",
+};
+
+let titleStyleCenter = {
+    textAlign: "center",
+};
+
+let titleStyleRight = {
+    textAlign: "right",
+};
+
 class TitleControl extends React.Component {
 //function TitleControl(props) {
     // let deleteItem = function (){
@@ -20,9 +32,12 @@ class TitleControl extends React.Component {
     
         this.state = {
           color:'',
-          value:0
+          value:0,
+          titleStyle:"titleStyleLeft"
         }; 
       };
+
+
 
       deleteItem = () =>{
         this.props.callbackDelete();
@@ -35,17 +50,36 @@ class TitleControl extends React.Component {
     
       handleTabsTitle = (value) =>{
         console.log("Title####",value)
-        this.setState({value: value});      
+        this.setState({value: value}); 
+        this.props.onTitle(value);
+        
+
+        if(value==1){
+            this.setState({
+                titleStyle: "titleStyleCenter"
+            })
+        }else if (value==2){
+            this.setState({
+                titleStyle: "titleStyleRight"
+            })
+        }else{
+            this.setState({
+                titleStyle: "titleStyleLeft"
+            })
+        }
+        
+
       };
+
 
     render() {
         return (
                     
             <div className={"chartTitle"}> 
                 <span className={"chartName"}>
-                <div>
-                {this.props.title}
-                </div>
+                    <div className={this.state.titleStyle}>
+                        {this.props.title}
+                    </div>
                 </span>
                 <div className={"controlBtn"}>
                 <SimpleMenu handleTabsTitle={this.handleTabsTitle.bind(this)} handleColorTitle={this.handleColorTitle.bind(this)} title={"Edit style"}/>

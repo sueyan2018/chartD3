@@ -284,6 +284,8 @@ class BasicLayout extends React.PureComponent {
     breakpoints : {lg: 1800, md: 1500 , sm :900, xs:600, xxs:0},
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
     rowHeight: 100,
+    title: "Chart",
+    value:0,
     onLayoutChange: function() {}
   };
 
@@ -338,7 +340,7 @@ class BasicLayout extends React.PureComponent {
     }
     return (
       <div key={i} data-grid={el}>
-        <TitleControl callbackSet={this.onSetItem.bind(this, i)} callbackDelete={this.onRemoveItem.bind(this, i)} title={"Chart"+i}/>
+        <TitleControl callbackSet={this.onSetItem.bind(this, i)} callbackDelete={this.onRemoveItem.bind(this, i)} onTitle={this.onTitle.bind(this, i)} title={"chart"+i}/>
         {el.add ? (
           <span
             className="add text"
@@ -404,7 +406,17 @@ class BasicLayout extends React.PureComponent {
 
   onSetItem(i){
     console.log(i);
+
   }
+
+  onTitle(value){
+console.log("layout####",value)
+    this.setState({
+      value:value
+    })
+
+  }
+
   render() {
     return (
       <div>
