@@ -65,7 +65,7 @@ class SketchExample extends React.Component {
       });
   
       return (
-        <div>
+        <div className="aaa">
           <div style={ styles.swatch } onClick={ this.handleClick }>
             <div style={ styles.color } />
           </div>

@@ -301,10 +301,10 @@ class BasicLayout extends React.PureComponent {
     this.state = {
       items: props.items,
       counter: 5,
-      backgroudColor:'',
-      borderColor:'',
-      backgroudColorStyle:'',
-      borderColorStyle:'',
+      backgroudColor:['#111','#222','#333','#444','#555'],
+      borderColor:['#111','#222','#333','#444','#555'],
+      backgroudColorStyle:['#111','#222','#333','#444','#555'],
+      borderColorStyle:['#111','#222','#333','#444','#555'],
     };
 
     this.onAddItem = this.onAddItem.bind(this);
@@ -349,8 +349,8 @@ class BasicLayout extends React.PureComponent {
         callbackDelete={this.onRemoveItem.bind(this, i)} 
         onTitle={this.onTitle.bind(this, i)} 
         title={"chart"+i}
-        handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this)}
-        handleBorderColorLayout={this.handleBorderColorLayout.bind(this)}
+        handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this,i)}
+        handleBorderColorLayout={this.handleBorderColorLayout.bind(this,i)}
         saveContent={this.saveContent.bind(this,i)}
         />
         {el.add ? (
@@ -429,14 +429,16 @@ console.log("layout####",value)
 
   }
 
-  handleBackgoudColorLayout = (color) =>{
+  handleBackgoudColorLayout = (i,color) =>{
     console.log("handleBackgoudColorLayout",color)
-    this.setState({backgroudColor: color.hex});       
+    this.state.backgroudColor[i] = color.hex;
+    this.setState({backgroudColor: this.state.backgroudColor});       
   };
 
-  handleBorderColorLayout = (color) =>{
+  handleBorderColorLayout = (i,color) =>{
     console.log("handleBorderColorLayout",color)
-    this.setState({borderColor: color.hex});        
+    this.state.borderColor[i] = color.hex;
+    this.setState({borderColor: this.state.borderColor});  
   };
 
   saveContent(i){
@@ -455,7 +457,7 @@ console.log("layout####",value)
 
           onLayoutChange={this.onLayoutChange}
           onBreakpointChange={this.onBreakpointChange}          
-          draggableCancel="input,textarea"
+          draggableCancel="input,.aaa"
           {...this.props}
         >
           {_.map(this.state.items, el => this.createElement(el))}
