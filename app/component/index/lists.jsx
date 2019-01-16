@@ -44,33 +44,35 @@ class AlignItemsList extends React.Component {
     }; 
   };
 
-  handleChange = (event, value) => {
+  handleTextFieldChange = event => {
+    console.log(event.target.value)
+    //this.setState({ textFieldValue: event.target.value });
+    this.props.handleTitleDialog(event.target.value);
+  };
+
+  handleTabsChange = (event, value) => {
     this.setState({ value: value });
     this.props.handleTabsDialog(value);  
   };
 
   handleColor = (color) =>{
-      console.log("list####handleColor",color)
-      this.props.handleColorDialog(color);      
+    console.log("list####handleColor",color)
+    this.props.handleColorDialog(color);      
   };
 
   handleBackgoudColor = (color) =>{
     console.log("list####handleBackgoudColor",color)
     this.props.handleBackgoudColorDialog(color);      
   };
-  
+
   handleBorderColor= (color) =>{
     console.log("list####handleBorderColor",color)
     this.props.handleBorderColorDialog(color);      
   };
 
-  handleTextFieldChange = event => {
-    console.log(this.refs.textfield.getValue())
-    this.setState({ textFieldValue: event.target.value });
-  };
 
   render() {
-//function AlignItemsList(props) {
+
     const { classes,type } = this.props;
 
     return (
@@ -106,7 +108,7 @@ class AlignItemsList extends React.Component {
           <div>
           <Tabs
             value={this.state.value}
-            onChange={this.handleChange}
+            onChange={this.handleTabsChange}
             indicatorColor="primary"
             textColor="primary"
           >

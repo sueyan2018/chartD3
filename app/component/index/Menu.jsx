@@ -17,6 +17,16 @@ class SimpleMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  handleTitleMenu = (title) =>{
+    console.log("handleTitleMenu",title)
+    this.props.handleTitle(title);      
+  };
+
+  handleTabsMenu = (value) =>{
+    console.log("Menu####",value)
+    this.props.handleTabsTitle(value);          
+  };
+
   handleColorMenu = (color) =>{
       console.log("Menu####",color)
       this.props.handleColorTitle(color);        
@@ -26,14 +36,10 @@ class SimpleMenu extends React.Component {
     console.log("handleBackgoudColorMenu",color)
     this.props.handleBackgoudColorTitle(color);      
   };
+
   handleBorderColorMenu = (color) =>{
     console.log("handleBorderColorMenu",color)
     this.props.handleBorderColorTitle(color);      
-  };
-
-  handleTabsMenu = (value) =>{
-    console.log("Menu####",value)
-    this.props.handleTabsTitle(value);          
   };
 
   saveInMenu = () => {
@@ -64,6 +70,7 @@ class SimpleMenu extends React.Component {
         >
           <CustomizedDialogDemo 
             type={1}
+            handleTitleMenu={this.handleTitleMenu.bind(this)}
             handleTabsMenu={this.handleTabsMenu.bind(this)} 
             handleColorMenu={this.handleColorMenu.bind(this)} 
             handleBackgoudColorMenu={this.handleBackgoudColorMenu.bind(this)} 
@@ -74,6 +81,7 @@ class SimpleMenu extends React.Component {
             />
             <CustomizedDialogDemo 
             type={2}
+            handleTitleMenu={this.handleTitleMenu.bind(this)}
             handleTabsMenu={this.handleTabsMenu.bind(this)} 
             handleColorMenu={this.handleColorMenu.bind(this)} 
             handleBackgoudColorMenu={this.handleBackgoudColorMenu.bind(this)} 

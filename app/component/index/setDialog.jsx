@@ -79,6 +79,11 @@ class CustomizedDialogDemo extends React.Component {
     this.handleClose();
   };
 
+  handleTitleDialog = (title) =>{
+    console.log("Dialog####",title)
+    this.props.handleTitleMenu(title);        
+  };
+
   handleTabsDialog = (value) =>{
     console.log("Dialog####",value)
     this.props.handleTabsMenu(value);        
@@ -120,6 +125,7 @@ class CustomizedDialogDemo extends React.Component {
           
             <AlignItemsList 
               type={type}
+              handleTitleDialog={this.handleTitleDialog.bind(this)}
               handleTabsDialog={this.handleTabsDialog.bind(this)} 
               handleColorDialog={this.handleColorDialog.bind(this)} 
               handleBackgoudColorDialog={this.handleBackgoudColorDialog.bind(this)} 

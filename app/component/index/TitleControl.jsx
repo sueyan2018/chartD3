@@ -2,18 +2,6 @@ import React from "react";
 import SimpleMenu from './Menu.jsx';
 
 class TitleControl extends React.Component {
-//function TitleControl(props) {
-    // let deleteItem = function (){
-    //     props.callbackDelete();
-    // }
-
-    // let setItem = function (){
-    //     props.callbackSet();
-    // }
-    
-    // let saveItem = function (){
-    //     props.callbackSave();
-    // }
 
       constructor(props) {
         super(props);
@@ -27,6 +15,8 @@ class TitleControl extends React.Component {
           colorStyle:'',
           backgroudColorStyle:'',
           borderColorStyle:'',
+          title:this.props.title,
+          titleName:this.props.title,
         }; 
       };
 
@@ -36,10 +26,23 @@ class TitleControl extends React.Component {
         this.props.callbackDelete();
       };
 
+      handleTitle = (title) =>{
+        console.log("handleTitle",title)
+        this.setState({title: title});       
+      };
+
+      handleTabsTitle = (value) =>{
+
+        console.log("Title####",value)
+        this.setState({value: value});
+        //this.props.onTitle(value);
+
+      };
+
       handleColorTitle = (color) =>{
           console.log("Title####",color.hex)
           this.setState({color: color.hex});       
-      };
+      };      
 
       handleBackgoudColorTitle = (color) =>{
         console.log("handleBackgoudColorTitle",color);
@@ -51,14 +54,6 @@ class TitleControl extends React.Component {
         console.log("handleBorderColorTitle",color)
         this.props.handleBorderColorLayout(color);
         //this.setState({borderColor: color.hex});        
-      };
-
-      handleTabsTitle = (value) =>{
-
-        console.log("Title####",value)
-        this.setState({value: value});
-        //this.props.onTitle(value);
-
       };
 
       saveInTitle(){
@@ -80,7 +75,8 @@ class TitleControl extends React.Component {
         } 
 
         this.setState({
-            colorStyle: this.state.color
+            colorStyle: this.state.color,
+            titleName:this.state.title
         })
       }
 
@@ -99,11 +95,12 @@ class TitleControl extends React.Component {
             <div className={"chartTitle"}> 
                 <span className={"chartName"}>
                     <div className={this.state.titleStyle} style={{color:this.state.colorStyle}}>
-                        {this.props.title}
+                        {this.state.titleName}
                     </div>
                 </span>
                 <div className={"controlBtn"}>
                 <SimpleMenu 
+                    handleTitle={this.handleTitle.bind(this)} 
                     handleTabsTitle={this.handleTabsTitle.bind(this)} 
                     handleColorTitle={this.handleColorTitle.bind(this)} 
                     handleBackgoudColorTitle={this.handleBackgoudColorTitle.bind(this)} 
