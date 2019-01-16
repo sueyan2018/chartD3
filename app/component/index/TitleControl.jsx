@@ -109,7 +109,7 @@ class TitleControl extends React.Component {
                     saveInContent={this.saveInContent.bind(this)} 
                     title={"Edit style"}
                 />
-                <i onClick={() => deleteItem()}>×</i>
+                <i onClick={this.deleteItem}>×</i>
                 </div>
             </div>
         

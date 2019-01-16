@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import BasicLayout from "./layout.jsx";
 
 
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -70,7 +69,11 @@ class Index extends React.Component {
     return (
       <div>
 
-        <BasicLayout onLayoutChange={onLayoutChange} items={this.state.items} onRemoveItem = {onRemoveItem}/>
+        <BasicLayout 
+          onLayoutChange={onLayoutChange} 
+          items={this.state.items} 
+          onRemoveItem = {onRemoveItem}
+        />
       
       </div>
     );
