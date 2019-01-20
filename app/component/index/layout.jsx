@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
-
 import TitleControl from "./TitleControl.jsx";
 
 import Series from "./LineChartHolder.jsx";
@@ -10,6 +8,9 @@ import Groupedcolumn from './BarChartHolder.jsx';
 import Labelline from './PieChartHolder.jsx';
 import PointC from './ScatterPlotChartHolder';
 import Percent from './AreaChartHolder.jsx';
+
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
+
 /**
  * This layout demonstrates how to use a grid with a dynamic number of elements.
  */
