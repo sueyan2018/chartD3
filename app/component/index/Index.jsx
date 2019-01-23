@@ -25,6 +25,22 @@ class Index extends React.Component {
     this.state = {
       spacing: '16',
       items: [0, 1, 2, 3, 4].map(function (i, key, list) {
+
+        let getCharType = (n) => {
+          switch (n % 5) {
+            case 0:
+              return "line";
+            case 1:
+              return "bar";
+            case 2:
+              return "point";
+            case 3:
+              return "pie"
+            case 4:
+              return "percent"
+          }
+        }
+
         return {
           i: i.toString(),
           x: i * 2,
@@ -32,7 +48,7 @@ class Index extends React.Component {
           w: 2,
           h: 3,
           add: i === (list.length - 1).toString(),
-          chartType:'line',
+          chartType: getCharType(i),
         };
       })
     };
@@ -61,7 +77,7 @@ class Index extends React.Component {
       _this.setState({ items: itmes });
     }
 
-    let onRemoveItem = function(i) {
+    let onRemoveItem = function (i) {
       //console.log("removing", i);
       _this.setState({ items: _.reject(_this.state.items, { i: i }) });
       //console.log(_this.items.length);
@@ -70,12 +86,12 @@ class Index extends React.Component {
     return (
       <div>
 
-        <BasicLayout 
-          onLayoutChange={onLayoutChange} 
-          items={this.state.items} 
-          onRemoveItem = {onRemoveItem}
+        <BasicLayout
+          onLayoutChange={onLayoutChange}
+          items={this.state.items}
+          onRemoveItem={onRemoveItem}
         />
-      
+
       </div>
     );
   }

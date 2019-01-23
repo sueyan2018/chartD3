@@ -49,7 +49,7 @@ class BasicLayout extends React.PureComponent {
 
   createElement(el) {
 
-    const chartType = el.add ? "+" : el.chartType;
+    const chartType = el.chartType;
     const i =  el.add ? "+" : el.i;
     
     let comp = <Series x={el.w} y={el.h} />;
