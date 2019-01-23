@@ -31,7 +31,8 @@ class Index extends React.Component {
           y: 0,
           w: 2,
           h: 3,
-          add: i === (list.length - 1).toString()
+          add: i === (list.length - 1).toString(),
+          chartType:'line',
         };
       })
     };

@@ -48,35 +48,28 @@ class BasicLayout extends React.PureComponent {
   }
 
   createElement(el) {
-    const removeStyle = {
-      position: "absolute",
-      right: "2px",
-      top: 0,
-      cursor: "pointer"
-    };
-    const i = el.add ? "+" : el.i;
 
-    //let comp = <LineChartContainer x={el.w} y={el.h} />;
-    let comp = <Series x={el.w} y={el.h}/>;
-    switch(i % 5){
-      case 1:
-      comp = <Series x={el.w} y={el.h}/>;
-      //comp = <LineChartContainer x={el.w} y={el.h} />;
-      break;
-      case 2:
-      comp = <Groupedcolumn  x={el.w} y={el.h} />
-      //comp = <BarChartContainer x={el.w} y={el.h} />;
-      break;
-      case 3:
-      comp = <Labelline x={el.w} y={el.h} />;
-      break;
-      case 4:
-      comp = <PointC x={el.w} y={el.h} />;
-      break;
+    const chartType = el.add ? "+" : el.chartType;
+    const i =  el.add ? "+" : el.i;
+    
+    let comp = <Series x={el.w} y={el.h} />;
+    
+    switch (chartType) {
+      case 'line':
+        comp = <Series x={el.w} y={el.h} />;
+        break;
+      case 'bar':
+        comp = <Groupedcolumn x={el.w} y={el.h} />;
+        break;
+      case 'pie':
+        comp = <Labelline x={el.w} y={el.h} />;
+        break;
+      case 'point':
+        comp = <PointC x={el.w} y={el.h} />;
+        break;
       default:
-      comp = <Percent x={el.w} y={el.h} />;
-      break;
-
+        comp = <Percent x={el.w} y={el.h} />;
+        break;
     }
     return (
       <div key={i} data-grid={el} style={{backgroundColor:this.state.backgroudColorStyle[i],border:'1px solid'+this.state.borderColorStyle[i]}}>
