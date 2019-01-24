@@ -8,7 +8,7 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from "@material-ui/core/Typography";
-import AlignItemsList from "./lists.jsx";
+import AlignItemsList from "./list.jsx";
 
 const DialogTitle = withStyles(theme => ({
   root: {
@@ -34,7 +34,7 @@ const DialogTitle = withStyles(theme => ({
           className={classes.closeButton}
           onClick={onClose}
         >
-          <CloseIcon /> 
+           <CloseIcon /> 
         </IconButton>
       ) : null}
     </MuiDialogTitle>
@@ -56,7 +56,7 @@ const DialogActions = withStyles(theme => ({
   }
 }))(MuiDialogActions);
 
-class CustomizedDialogDemo extends React.Component {
+class NewDialogDemo extends React.Component {
   state = {
     open: false,
     scroll: "paper",
@@ -77,45 +77,49 @@ class CustomizedDialogDemo extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
-    this.props.closeMenu();
   };
 
   saveInDialog = () => {
-    this.props.saveInMenu();
+    this.props.saveInMenu(this.state);
     this.handleClose();
   };
 
+  handleTypeDialog = type => {
+    this.setState({ chartType: type });
+  };
+  
   handleTitleDialog = title => {
     this.setState({ textFieldValue: title });
-    this.props.handleTitleMenu(title);
   };
 
   handleTabsDialog = value => {
     this.setState({ tabValue: value });
-    this.props.handleTabsMenu(value);
   };
 
   handleColorDialog = color => {
     this.setState({ titleColor: color });
-    this.props.handleColorMenu(color);
   };
 
   handleBackgoudColorDialog = color => {
-    //console.log("handleBackgoudColorDialog",color)
     this.setState({ chartBackgoudColor: color });
-    this.props.handleBackgoudColorMenu(color);
   };
+  
   handleBorderColorDialog = color => {
-    //console.log("handleBorderColorDialog",color)
     this.setState({ chartBorderColor: color });
-    this.props.handleBorderColorMenu(color);
   };
 
   render() {
-    let { title, type } = this.props;
+    let { title } = this.props;
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>{title}</Button>
+        <Button 
+            color="primary"
+            variant="contained"
+            //size="small"
+            onClick={this.handleClickOpen}
+        >
+            {title}
+        </Button>
         <Dialog
           onClose={this.handleClose}
           aria-labelledby="customized-dialog-title"
@@ -128,7 +132,7 @@ class CustomizedDialogDemo extends React.Component {
 
           <DialogContent>
             <AlignItemsList
-              type={type}
+              handleTypeDialog={this.handleTypeDialog.bind(this)}
               handleTitleDialog={this.handleTitleDialog.bind(this)}
               handleTabsDialog={this.handleTabsDialog.bind(this)}
               handleColorDialog={this.handleColorDialog.bind(this)}
@@ -151,4 +155,4 @@ class CustomizedDialogDemo extends React.Component {
   }
 }
 
-export default CustomizedDialogDemo;
+export default NewDialogDemo;

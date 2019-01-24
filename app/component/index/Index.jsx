@@ -56,43 +56,85 @@ class Index extends React.Component {
 
   render() {
 
+    let dataArray = [];
+    
+    //new code
     let _this = this;
-
-    let onLayoutChange = function (layout) {
-      //console.log(layout);
-      //console.log(_this.state.items);
-      let itmes = _this.state.items.map(function (value) {
+    
+    let onLayoutChange = function(layout) {
+      console.log("layout",layout);
+      console.log("old state",_this.state.items);
+      
+      let itmes = _this.state.items.map(function(value) {
         return value;
       });
 
-      //console.log('map遍历:'+index+'--'+value);
-      layout.map(function (valueL, indexL) {
+      
+      layout.map(function(valueL, indexL) {
+        console.log(indexL,valueL );
         if (indexL < itmes.length) {
           itmes[indexL].h = valueL.h;
           itmes[indexL].w = valueL.w;
         } else {
+          
           itmes.push(valueL);
+          //itmes[indexL].chartType = _this.state.tempChartType;
+          
         }
       });
       _this.setState({ items: itmes });
-    }
+    };
 
-    let onRemoveItem = function (i) {
-      //console.log("removing", i);
+    let onRemoveItem = function(i) {
+      console.log("removing", i);
       _this.setState({ items: _.reject(_this.state.items, { i: i }) });
       //console.log(_this.items.length);
+    };
+    
+    let add = function(params) {
+
+    console.log("adding", "n" + _this.state.counter);
+    
+    _this.setState({
+      // Add a new item. It must have a unique key!
+      items: _this.state.items.concat({
+        i: _this.state.counter.toString(),
+        //x: (this.state.items.length * 2) % (this.state.cols || 12),
+        x: Infinity,
+        y: Infinity, // puts it at the bottom
+        w: 2,
+        h: 3,
+        chartType:params.chartType,
+        textFieldValue: params.textFieldValue,
+        tabValue: params.tabValue,
+        titleColor: params.titleColor,
+        chartBackgoudColor: params.chartBackgoudColor,
+        chartBorderColor: params.chartBorderColor,
+      }),
+      // Increment the counter to ensure key is always unique.
+      counter: _this.state.counter + 1,
+      
+    });
+    
+    console.log("adding!!!",  _this.state.items);
+  }
+    
+    let edit = function(params) {
+
+    console.log("edit", params);
     }
 
     return (
       <div>
-
-        <BasicLayout
-          onLayoutChange={onLayoutChange}
-          items={this.state.items}
-          onRemoveItem={onRemoveItem}
-        />
-
-      </div>
+      <BasicLayout
+        dataArray={dataArray}
+        onLayoutChange={onLayoutChange}
+        items={this.state.items}
+        onRemoveItem={onRemoveItem}
+        add = {add}
+        edit = {edit}
+      />
+    </div>
     );
   }
 }

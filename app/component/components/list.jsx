@@ -7,6 +7,11 @@ import TextField from "@material-ui/core/TextField";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import SketchExample from "./colorPicker.jsx";
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+
 const styles = theme => ({
   root: {
     width: "100%",
@@ -28,6 +33,20 @@ const styles = theme => ({
   tabBtn: {
     width: "80px",
     minWidth: "70px"
+  },
+  
+  commonTypography: {
+    color: "#868aa8",
+    fontSize: '18px',
+    fontWeight: 'blod',
+  },
+  selectEmpty: {
+    width: '100%'  
+  },
+  textfieldStyle:{
+    backgroundColor: '#fff',
+    color: "#868aa8",
+    margin: '0'
   }
 });
 class AlignItemsList extends React.Component {
@@ -35,6 +54,7 @@ class AlignItemsList extends React.Component {
     super(props);
 
     this.state = {
+      chartType:'',
       textFieldValue: "",
       tabValue: 0,
       titleColor: '#f5f5f5',
@@ -42,42 +62,78 @@ class AlignItemsList extends React.Component {
       chartBorderColor:'#dfdfdf',
     };
   }
-
+  
+  handleTypeChange = event => {
+    this.setState({ chartType: event.target.value });
+    this.props.handleTypeDialog(event.target.value);
+  };
+  
   handleTextFieldChange = event => {
+    //console.log(event.target.value)
     this.setState({ textFieldValue: event.target.value });
     this.props.handleTitleDialog(event.target.value);
   };
 
-  handleTabsChange = (event, value) => {
-    this.setState({ tabValue: value });
-    this.props.handleTabsDialog(value);
+  handleTabsChange = (event, tab) => {
+    this.setState({ tabValue: tab });
+    this.props.handleTabsDialog(tab);
   };
 
   handleColor = color => {
+    //console.log("list####handleColor",color)
     this.setState({ titleColor: color });
     this.props.handleColorDialog(color);
   };
 
   handleBackgoudColor = color => {
+    //console.log("list####handleBackgoudColor",color)
     this.setState({ chartBackgoudColor: color });
     this.props.handleBackgoudColorDialog(color);
   };
 
   handleBorderColor = color => {
+    //console.log("list####handleBorderColor",color)
     this.setState({ chartBorderColor: color });
     this.props.handleBorderColorDialog(color);
   };
 
   render() {
-    const { classes, type } = this.props;
-
+    const { classes } = this.props;
+  
     return (
       <div>
-        {type == 1 ? (
+        
           <List className={classes.root}>
+          
+           <Typography className={classes.commonTypography} gutterBottom>
+                Chart Type Setting
+           </Typography>
+           <ListItem alignItems="center">
+              <ListItemText className={classes.itemText} primary="Type" />
+              <Select
+                value={this.state.chartType}
+                onChange={this.handleTypeChange}
+                input={<Input name="type" id="type-label-placeholder" />}
+                displayEmpty
+                name="type"
+                className={classes.selectEmpty}
+              >
+                
+                <MenuItem value={'area'}>AreaChart</MenuItem>
+                <MenuItem value={'line'}>LineChart</MenuItem>
+                <MenuItem value={'bar'}>BarChart</MenuItem>
+                <MenuItem value={'pie'}>PieChart</MenuItem>
+                <MenuItem value={'point'}>PointChart</MenuItem>
+              </Select>
+            </ListItem>                            
+            
+            <Typography className={classes.commonTypography} gutterBottom>
+              Title Setting
+            </Typography>
             <ListItem alignItems="center">
               <ListItemText className={classes.itemText} primary="Text" />
               <TextField
+                className={ classes.textfieldStyle }
                 id="filled-full-width"
                 ref="textfield"
                 //label="Label"
@@ -109,14 +165,16 @@ class AlignItemsList extends React.Component {
                 </Tabs>
               </div>
             </ListItem>
+            
             <ListItem alignItems="center">
               <ListItemText className={classes.itemText} primary="Color" />
               <SketchExample handleColor={this.handleColor.bind(this)} />
             </ListItem>
-          </List>
-        ) : (
-          <List className={classes.root}>
-            <ListItem alignItems="center">
+            
+            <Typography className={classes.commonTypography} gutterBottom>
+              Content Setting
+            </Typography>
+             <ListItem alignItems="center">
               <ListItemText
                 className={classes.itemText}
                 primary="BackgroundColor"
@@ -133,7 +191,7 @@ class AlignItemsList extends React.Component {
               <SketchExample handleColor={this.handleBorderColor.bind(this)} />
             </ListItem>
           </List>
-        )}
+       
       </div>
     );
   }

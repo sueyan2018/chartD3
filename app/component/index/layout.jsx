@@ -1,34 +1,38 @@
 import React, { Fragment } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
-import TitleControl from "./TitleControl.jsx";
-
+import { Button } from "@material-ui/core";
 import Series from "./LineChartHolder.jsx";
-import Groupedcolumn from './BarChartHolder.jsx';
-import Labelline from './PieChartHolder.jsx';
-import PointC from './ScatterPlotChartHolder';
-import Percent from './AreaChartHolder.jsx';
+import Groupedcolumn from "./BarChartHolder.jsx";
+import Labelline from "./PieChartHolder.jsx";
+import PointC from "./ScatterPlotChartHolder";
+import Percent from "./AreaChartHolder.jsx";
+import TitleControl from "./TitleControl.jsx";
+import NewChart from "../components/newChart.jsx";
+
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 /**
  * This layout demonstrates how to use a grid with a dynamic number of elements.
  */
+
 class BasicLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
-    breakpoints : {lg: 1800, md: 1500 , sm :900, xs:600, xxs:0},
+    breakpoints: { lg: 1800, md: 1500, sm: 900, xs: 600, xxs: 0 },
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
     rowHeight: 100,
     title: "Chart",
-    value:0,
-    onLayoutChange: function() {}
+    value: 0,
+    onLayoutChange: function() {},
+    
   };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      items : nextProps.items
-    })
+      items: nextProps.items
+    });
   }
 
   constructor(props) {
@@ -37,10 +41,11 @@ class BasicLayout extends React.PureComponent {
     this.state = {
       items: props.items,
       counter: 5,
-      backgroudColor:['#fff','#fff','#fff','#fff','#fff'],
-      borderColor:['#fff','#fff','#fff','#fff','#fff'],
-      backgroudColorStyle:['#fff','#fff','#fff','#fff','#fff'],
-      borderColorStyle:['#fff','#fff','#fff','#fff','#fff'],
+      backgroudColor: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+      borderColor: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+      backgroudColorStyle: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+      borderColorStyle: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+    
     };
 
     this.onAddItem = this.onAddItem.bind(this);
@@ -50,6 +55,12 @@ class BasicLayout extends React.PureComponent {
   createElement(el) {
 
     const chartType = el.chartType;
+    const textFieldValue = el.textFieldValue;
+    const tabValue = el.tabValue;
+    const titleColor = el.titleColor;
+    const chartBackgoudColor = el.chartBackgoudColor;
+    const chartBorderColor = el.chartBorderColor;
+    
     const i =  el.add ? "+" : el.i;
     
     let comp = <Series x={el.w} y={el.h} />;
@@ -71,16 +82,32 @@ class BasicLayout extends React.PureComponent {
         comp = <Percent x={el.w} y={el.h} />;
         break;
     }
+    
     return (
-      <div key={i} data-grid={el} style={{backgroundColor:this.state.backgroudColorStyle[i],border:'1px solid'+this.state.borderColorStyle[i]}}>
-        <TitleControl 
-        callbackSet={this.onSetItem.bind(this, i)} 
-        callbackDelete={this.onRemoveItem.bind(this, i)} 
-        onTitle={this.onTitle.bind(this, i)} 
-        title={"chart"+i}
-        handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this,i)}
-        handleBorderColorLayout={this.handleBorderColorLayout.bind(this,i)}
-        saveContent={this.saveContent.bind(this,i)}
+      
+      <div
+        key={i}
+        data-grid={el}
+        style={{
+          backgroundColor: chartBackgoudColor,
+          border: chartBorderColor
+        }}
+        // style={{
+        //   backgroundColor: this.state.backgroudColorStyle[i],
+        //   border: "1px solid" + this.state.borderColorStyle[i]
+        // }}
+      >
+        <TitleControl
+          callbackDelete={this.onRemoveItem.bind(this, i)}
+          textFieldValue={textFieldValue}
+          tabValue={tabValue}
+          titleColor={titleColor}
+          chartBackgoudColor={chartBackgoudColor}
+          chartBorderColor={chartBorderColor}
+          handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this,i)}
+          handleBorderColorLayout={this.handleBorderColorLayout.bind(this, i)}
+          saveContent={this.saveContent.bind(this, i)}
+          saveContentNew={this.saveContentNew.bind(this)}
         />
         {el.add ? (
           <span
@@ -91,40 +118,17 @@ class BasicLayout extends React.PureComponent {
             Add +
           </span>
         ) : (
-          <div>
-            {comp}
-          </div>
-            
-          
+          <div>{comp}</div>
         )}
-        
-        {/* <span
-          className="remove"
-          style={removeStyle}
-          onClick={this.onRemoveItem.bind(this, i)}
-        >
-          x
-        </span> */}
 
       </div>
     );
   }
 
-  onAddItem() {
-    /*eslint no-console: 0*/
-    console.log("adding", "n" + this.state.newCounter);
-    this.setState({
-      // Add a new item. It must have a unique key!
-      items: this.state.items.concat({
-        i: this.state.counter.toString(),
-        x: (this.state.items.length * 2) % (this.state.cols || 12),
-        y: Infinity, // puts it at the bottom
-        w: 2,
-        h: 3
-      }),
-      // Increment the counter to ensure key is always unique.
-      counter: this.state.counter + 1
-    });
+  onAddItem(params) {
+
+    this.props.add(params);
+    
   }
 
   // We're using the cols coming back from this to calculate where to add new items.
@@ -144,48 +148,52 @@ class BasicLayout extends React.PureComponent {
     //console.log("removing", i);
     this.props.onRemoveItem(i);
   }
+  
+  handleBackgoudColorLayout = (i, color) => {
+    console.log("handleBackgoudColorLayout", color);
+    this.state.backgroudColor[i] = color;
+    this.setState({ backgroudColor: this.state.backgroudColor });
+  };
 
-  onSetItem(i){
-    console.log(i);
+  handleBorderColorLayout = (i, color) => {
+    console.log("handleBorderColorLayout", color);
+    this.state.borderColor[i] = color;
+    this.setState({ borderColor: this.state.borderColor });
+  };
 
-  }
+  saveContent(i) {
 
-  onTitle(value){
-console.log("layout####",value)
     this.setState({
-      value:value
-    })
-
+      backgroudColorStyle: this.state.backgroudColor,
+      borderColorStyle: this.state.borderColor
+    });
+    
   }
-
-  handleBackgoudColorLayout = (i,color) =>{
-    console.log("handleBackgoudColorLayout",color)
-    this.state.backgroudColor[i] = color.hex;
-    this.setState({backgroudColor: this.state.backgroudColor});       
-  };
-
-  handleBorderColorLayout = (i,color) =>{
-    console.log("handleBorderColorLayout",color)
-    this.state.borderColor[i] = color.hex;
-    this.setState({borderColor: this.state.borderColor});  
-  };
-
-  saveContent(i){
-    console.log("#####",this.state.backgroudColor,"#####",this.state.borderColor,"   " +i)
-         this.setState({
-            backgroudColorStyle: this.state.backgroudColor,
-            borderColorStyle: this.state.borderColor,
-         })
+  
+  saveContentNew(params){
+    this.props.edit(params);
   }
+  
   render() {
     return (
       <div>
-        <button onClick={this.onAddItem}>Add Item</button>
+     { /*
+        <Button
+          color="primary"
+          variant="outlined"
+          size="small"
+          onClick={this.onAddItem}
+        >
+          Add Item
+        </Button>
+       */ }
+        <NewChart 
+          addItem ={this.onAddItem}
+        />
         
         <ResponsiveReactGridLayout
-
           onLayoutChange={this.onLayoutChange}
-          onBreakpointChange={this.onBreakpointChange}          
+          onBreakpointChange={this.onBreakpointChange}
           draggableCancel="input,.aaa"
           {...this.props}
         >
