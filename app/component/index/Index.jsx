@@ -23,7 +23,10 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      spacing: '16',
+      tempChartType:'line',
+      temptitleText:'newchart',
+      spacing: "16",
+      counter: 5,
       items: [0, 1, 2, 3, 4].map(function (i, key, list) {
 
         let getCharType = (n) => {
