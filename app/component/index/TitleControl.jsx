@@ -35,13 +35,13 @@ class TitleControl extends React.Component {
   handleBackgoudColorTitle = color => {
     console.log("handleBackgoudColorTitle",color);
     this.setState({ chartBackgoudColor: color });
-    this.props.handleBackgoudColorLayout(color);
+    //this.props.handleBackgoudColorLayout(color);
   };
 
   handleBorderColorTitle = color => {
     console.log("handleBorderColorTitle",color)
     this.setState({ chartBorderColor: color });
-    this.props.handleBorderColorLayout(color);
+    //this.props.handleBorderColorLayout(color);
   };
 
   saveInTitle(params) {

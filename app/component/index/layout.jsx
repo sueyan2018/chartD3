@@ -43,8 +43,8 @@ class BasicLayout extends React.PureComponent {
       counter: 5,
       backgroudColor: ["#fff", "#fff", "#fff", "#fff", "#fff"],
       borderColor: ["#fff", "#fff", "#fff", "#fff", "#fff"],
-      backgroudColorStyle: ["#fff", "#fff", "#fff", "#fff", "#fff"],
-      borderColorStyle: ["#fff", "#fff", "#fff", "#fff", "#fff"],
+      bbackgroudColorStyle: ["", "", "", "", ""],
+      borderColorStyle: ["", "", "", "", ""],
     
     };
 
@@ -62,7 +62,7 @@ class BasicLayout extends React.PureComponent {
     const chartBorderColor = el.chartBorderColor;
     
     const i =  el.add ? "+" : el.i;
-    
+    console.log(i)
     let comp = <Series x={el.w} y={el.h} />;
     
     switch (chartType) {
@@ -82,15 +82,19 @@ class BasicLayout extends React.PureComponent {
         comp = <Percent x={el.w} y={el.h} />;
         break;
     }
-    
+    console.log(this.state.backgroudColorStyle)
     return (
       
       <div
         key={i}
         data-grid={el}
         style={{
-          backgroundColor: chartBackgoudColor,
-          border: chartBorderColor
+          backgroundColor:  chartBackgoudColor,
+          borderColor:  chartBorderColor
+        }}
+        style={{
+          backgroundColor: this.state.backgroudColorStyle && this.state.backgroudColorStyle[i] ? this.state.backgroudColorStyle[i] : chartBackgoudColor,
+          borderColor: this.state.borderColorStyle && this.state.borderColorStyle[i] ? this.state.borderColorStyle[i] : chartBorderColor
         }}
         // style={{
         //   backgroundColor: this.state.backgroudColorStyle[i],
@@ -104,10 +108,10 @@ class BasicLayout extends React.PureComponent {
           titleColor={titleColor}
           chartBackgoudColor={chartBackgoudColor}
           chartBorderColor={chartBorderColor}
-          handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this,i)}
-          handleBorderColorLayout={this.handleBorderColorLayout.bind(this, i)}
-          saveContent={this.saveContent.bind(this, i)}
-          saveContentNew={this.saveContentNew.bind(this)}
+          // handleBackgoudColorLayout={this.handleBackgoudColorLayout.bind(this,i)}
+          // handleBorderColorLayout={this.handleBorderColorLayout.bind(this, i)}
+          // saveContent={this.saveContent.bind(this, i)}
+          saveContentNew={this.saveContentNew.bind(this,i)}
         />
         {el.add ? (
           <span
@@ -149,29 +153,37 @@ class BasicLayout extends React.PureComponent {
     this.props.onRemoveItem(i);
   }
   
-  handleBackgoudColorLayout = (i, color) => {
-    console.log("handleBackgoudColorLayout", color);
-    this.state.backgroudColor[i] = color;
-    this.setState({ backgroudColor: this.state.backgroudColor });
-  };
+  // handleBackgoudColorLayout = (i, color) => {
+  //   console.log("handleBackgoudColorLayout", color);
+  //   this.state.backgroudColor[i] = color;
+  //   this.setState({ backgroudColor: this.state.backgroudColor });
+  // };
 
-  handleBorderColorLayout = (i, color) => {
-    console.log("handleBorderColorLayout", color);
-    this.state.borderColor[i] = color;
-    this.setState({ borderColor: this.state.borderColor });
-  };
+  // handleBorderColorLayout = (i, color) => {
+  //   console.log("handleBorderColorLayout", color);
+  //   this.state.borderColor[i] = color;
+  //   this.setState({ borderColor: this.state.borderColor });
+  // };
 
-  saveContent(i) {
+  // saveContent(i) {
 
-    this.setState({
-      backgroudColorStyle: this.state.backgroudColor,
-      borderColorStyle: this.state.borderColor
-    });
+  //   this.setState({
+  //     backgroudColorStyle: this.state.backgroudColor,
+  //     borderColorStyle: this.state.borderColor
+  //   });
     
-  }
+  // }
   
-  saveContentNew(params){
-    this.props.edit(params);
+  saveContentNew(i,params){
+    //this.props.edit(params);
+    console.log(i,params);
+    
+    this.state.backgroudColor[i] = params.chartBackgoudColor;
+    this.state.borderColor[i] = params.chartBorderColor;
+    this.setState({ 
+      backgroudColorStyle: this.state.backgroudColor ,
+      borderColorStyle: this.state.borderColor 
+    });
   }
   
   render() {
